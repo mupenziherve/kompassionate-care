@@ -2,6 +2,7 @@ import Navbar from "./components/layout/Navbar";
 import Hero from "./components/home/Hero";
 import TrustSection from "./components/home/TrustSection";
 import AboutPreview from "./components/home/AboutPreview";
+import ServicesSection from "./components/home/ServicesSection";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Hero />
       <TrustSection />
       <AboutPreview />
+      <ServicesSection />
     </>
   );
 }
