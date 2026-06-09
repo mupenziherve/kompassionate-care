@@ -4,14 +4,14 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Logo */}
-        <div>
-          <h1 className="text-2xl font-bold text-[#035346]">
-            Kompassionate Care
-          </h1>
-        </div>
+        
+        <img
+          src="/images/logo.png"
+          alt="Kompassionate Care"
+          className="h-50 w-auto"
+        />
 
-        {/* Navigation */}
+        
         <nav className="hidden md:flex items-center gap-8 text-gray-700">
           <Link href="/" className="hover:text-[#DD844B] transition">
             Home
