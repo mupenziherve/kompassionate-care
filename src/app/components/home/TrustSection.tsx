@@ -39,6 +39,7 @@ export default function TrustSection() {
           <h2 className="mt-4 text-4xl font-bold text-[#035346]">
             Why Families Trust Kompassionate Care
           </h2>
+          
 
           <p className="mt-6 text-gray-600">
             We provide compassionate, professional care in a safe, comfortable

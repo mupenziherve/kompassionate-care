@@ -5,12 +5,12 @@ export default function Footer() {
     <footer className="bg-[#035346] text-white">
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Brand */}
+        
           <div>
             <img
-              src="/images/logo.png"
+              src="/images/logo2.png"
               alt="Kompassionate Care"
-              className="h-16 w-auto"
+              className="h-50 w-auto"
             />
 
             <p className="mt-4 text-gray-200">
@@ -19,7 +19,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Quick Links */}
+          
           <div>
             <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
 
@@ -36,7 +36,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Services */}
+      
           <div>
             <h3 className="font-semibold text-lg mb-4">Services</h3>
 
@@ -49,7 +49,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Contact */}
+         
           <div>
             <h3 className="font-semibold text-lg mb-4">Contact</h3>
 
