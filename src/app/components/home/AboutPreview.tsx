@@ -1,49 +1,88 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ShieldCheck, Heart, ArrowRight } from "lucide-react";
+import React, { useMemo } from "react";
 import Link from "next/link";
+import { motion, Variants } from "framer-motion";
+import { ShieldCheck, Heart, ArrowRight } from "lucide-react";
+
+const IMAGE_FADE_UP_PIPELINE: Variants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const CONTENT_FADE_UP_PIPELINE: Variants = {
+  hidden: { opacity: 0, y: 25 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.75, delay: 0.15, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
 export default function AboutPreview() {
   return (
-    <section className="py-24 lg:py-32 bg-white relative overflow-hidden">
-      {/* Decorative Structural Grid Background Element */}
-      <div className="absolute inset-0 bg-[radial-gradient(#035346_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.02] pointer-events-none" />
+    <section
+      className="py-24 lg:py-32 bg-white relative overflow-hidden"
+      style={
+        {
+          contentVisibility: "auto",
+          containIntrinsicSize: "0 700px",
+        } as React.CSSProperties
+      }
+    >
+      <div
+        className="absolute inset-0 bg-[radial-gradient(#035346_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.02] pointer-events-none select-none"
+        style={{ contain: "strict" }}
+        aria-hidden="true"
+      />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-12 gap-16 xl:gap-24 items-center">
-          {/* Left Side: Premium Multi-Layered Image Framework */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-6 relative w-full aspect-[4/5] sm:h-[520px] lg:h-[580px]"
+            variants={IMAGE_FADE_UP_PIPELINE}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="lg:col-span-6 relative w-full aspect-[4/5] sm:h-[520px] lg:h-[580px] [will-change:transform]"
           >
-            {/* Structural Accent Frame Backdrop */}
-            <div className="absolute inset-4 -rotate-2 rounded-[2.5rem] bg-[#035346]/5 -z-10" />
-            <div className="absolute inset-4 translate-x-4 translate-y-4 rotate-1 rounded-[2.5rem] border border-[#DD844B]/20 -z-10" />
+            <div
+              className="absolute inset-4 -rotate-2 rounded-[2.5rem] bg-[#035346]/5 -z-10 select-none pointer-events-none"
+              aria-hidden="true"
+            />
+            <div
+              className="absolute inset-4 translate-x-4 translate-y-4 rotate-1 rounded-[2.5rem] border border-[#DD844B]/20 -z-10 select-none pointer-events-none"
+              aria-hidden="true"
+            />
 
-            {/* Main Visual Frame */}
             <div className="w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100 relative bg-stone-100">
               <img
                 src="/images/about.jpg"
                 alt="Kompassionate Care Community Lifestyle"
-                className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover object-center transform hover:scale-103 transition-transform duration-700"
+                loading="lazy"
+                decoding="async"
               />
-              {/* Subtle Ambient Bottom Shadow Mask */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none select-none"
+                aria-hidden="true"
+              />
             </div>
 
-            {/* Elite Trust Overlap Badge */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
               className="absolute -bottom-6 -right-4 sm:-right-6 bg-[#035346] text-white p-5 rounded-2xl shadow-xl max-w-[220px] flex flex-col gap-2 border border-white/10 z-20"
             >
-              <div className="bg-white/10 w-8 h-8 rounded-lg flex items-center justify-center text-[#DD844B]">
+              <div
+                className="bg-white/10 w-8 h-8 rounded-lg flex items-center justify-center text-[#DD844B] shrink-0"
+                aria-hidden="true"
+              >
                 <ShieldCheck
                   size={20}
                   fill="white"
@@ -57,21 +96,20 @@ export default function AboutPreview() {
                 Registered Nurse (RN) Managed Adult Foster Home.
               </p>
             </motion.div>
-          </motion.div>clearTimeout
+          </motion.div>
 
-          {/* Right Side: Editorial Content Layout */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-6 flex flex-col items-start"
+            variants={CONTENT_FADE_UP_PIPELINE}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="lg:col-span-6 flex flex-col items-start [will-change:transform]"
           >
             <span className="text-[#DD844B] uppercase font-bold tracking-[3px] text-xs">
               Our Foundations
             </span>
 
-            <h2 className="mt-4 text-4xl sm:text-5xl font-serif text-[#035346] leading-[1.15] font-normal">
+            <h2 className="mt-4 text-4xl sm:text-5xl font-serif text-[#035346] leading-[1.15] font-normal tracking-wide">
               A Home Built on Compassion, Dignity, and Trust
             </h2>
 
@@ -90,10 +128,12 @@ export default function AboutPreview() {
               of mind.
             </p>
 
-            {/* High-End Two-Column Feature Subgrid */}
-            <div className="grid sm:grid-cols-2 gap-6 w-full mt-8 pt-8 border-t border-gray-100">
+            <div className="grid sm:grid-cols-2 gap-6 w-full mt-8 pt-8 border-t border-stone-200/60">
               <div className="flex gap-3 items-start">
-                <div className="text-[#DD844B] mt-0.5 shrink-0">
+                <div
+                  className="text-[#DD844B] mt-0.5 shrink-0"
+                  aria-hidden="true"
+                >
                   <Heart
                     size={18}
                     fill="currentColor"
@@ -104,7 +144,7 @@ export default function AboutPreview() {
                   <h4 className="text-sm font-bold text-[#035346] tracking-wide">
                     Homelike Comfort
                   </h4>
-                  <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-500 mt-1 leading-relaxed font-normal">
                     Preserving the warmth, rhythm, and familiar safety of true
                     home living.
                   </p>
@@ -112,7 +152,10 @@ export default function AboutPreview() {
               </div>
 
               <div className="flex gap-3 items-start">
-                <div className="text-[#DD844B] mt-0.5 shrink-0">
+                <div
+                  className="text-[#DD844B] mt-0.5 shrink-0"
+                  aria-hidden="true"
+                >
                   <ShieldCheck
                     size={18}
                     fill="currentColor"
@@ -123,7 +166,7 @@ export default function AboutPreview() {
                   <h4 className="text-sm font-bold text-[#035346] tracking-wide">
                     Clinical Peace of Mind
                   </h4>
-                  <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-500 mt-1 leading-relaxed font-normal">
                     Continuous RN oversight and meticulously managed medication
                     protocols.
                   </p>
@@ -131,11 +174,11 @@ export default function AboutPreview() {
               </div>
             </div>
 
-            {/* High-Conversion CTA Trigger */}
             <div className="mt-10 w-full sm:w-auto">
               <Link
                 href="/about"
-                className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-[#035346] hover:bg-[#023b32] text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-md shadow-[#035346]/10 group"
+                className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-[#035346] hover:bg-[#023b32] text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-md shadow-[#035346]/10 group outline-none focus-visible:ring-2 focus-visible:ring-[#035346] focus-visible:ring-offset-4"
+                aria-label="Learn more about our organizational history and story"
               >
                 <span>Learn More About Our Story</span>
                 <ArrowRight

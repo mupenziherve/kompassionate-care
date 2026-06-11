@@ -1,109 +1,80 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Shield, HeartPulse, Activity, UserCheck } from "lucide-react";
-
-const stats = [
-  {
-    number: "24/7",
-    label: "Awake Supervision",
-    description:
-      "Continuous around-the-clock vigilant care, monitoring, and proactive safety.",
-    icon: Activity,
-  },
-  {
-    number: "100%",
-    label: "Individualized Care",
-    description:
-      "Meticulously mapped ADL and medication plans customized per resident.",
-    icon: Shield,
-  },
-  {
-    number: "RN",
-    label: "Clinical Direction",
-    description:
-      "Direct Registered Nurse management ensuring rigorous professional standards.",
-    icon: UserCheck,
-  },
-  {
-    number: "365",
-    label: "Annual Continuity",
-    description:
-      "Uninterrupted operational support for permanent and respite placement.",
-    icon: HeartPulse,
-  },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-  },
-};
+import React from "react";
+import { Activity, Shield, UserCheck, Calendar } from "lucide-react";
 
 export default function StatsSection() {
   return (
-    <div className="w-full bg-white px-6 py-12">
-      <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="max-w-7xl mx-auto bg-[#035346] rounded-[2.5rem] lg:rounded-[3.5rem] p-12 lg:p-20 shadow-xl relative overflow-hidden"
-      >
-        {/* Premium Structural Design Accents */}
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/[0.03] via-transparent to-transparent pointer-events-none" />
-        <div className="absolute -left-16 -bottom-16 w-64 h-64 bg-[#DD844B]/10 rounded-full blur-3xl pointer-events-none" />
+    <section className="py-12 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="bg-[#035346] rounded-[2.5rem] shadow-xl p-10 lg:p-16 relative overflow-hidden">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 relative z-10">
+            <div className="flex flex-col items-center text-center relative px-4 group">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 text-white/[0.07] pointer-events-none select-none transition-transform duration-500 group-hover:scale-110">
+                <Activity size={110} strokeWidth={1} />
+              </div>
+              <p className="text-4xl lg:text-5xl font-serif text-[#DD844B] font-normal tracking-wide relative z-10">
+                24/7
+              </p>
+              <h4 className="text-xs font-bold text-white uppercase tracking-wider mt-4 relative z-10">
+                Awake Supervision
+              </h4>
+              <p className="text-xs text-stone-300 mt-2 leading-relaxed font-normal max-w-[200px] relative z-10">
+                Continuous around-the-clock vigilant care, monitoring, and
+                proactive safety.
+              </p>
+            </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 relative z-10 divider-grid">
-          {stats.map((stat, index) => {
-            const IconComponent = stat.icon;
+            <div className="flex flex-col items-center text-center relative px-4 group sm:border-l sm:border-white/10 lg:border-l-2">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 text-white/[0.07] pointer-events-none select-none transition-transform duration-500 group-hover:scale-110">
+                <Shield size={110} strokeWidth={1} />
+              </div>
+              <p className="text-4xl lg:text-5xl font-serif text-[#DD844B] font-normal tracking-wide relative z-10">
+                100%
+              </p>
+              <h4 className="text-xs font-bold text-white uppercase tracking-wider mt-4 relative z-10">
+                Individualized Care
+              </h4>
+              <p className="text-xs text-stone-300 mt-2 leading-relaxed font-normal max-w-[200px] relative z-10">
+                Meticulously mapped ADL and medication plans customized per
+                resident.
+              </p>
+            </div>
 
-            return (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="flex flex-col items-center text-center px-2 relative group"
-              >
-                {/* Dynamic Contextual Floating Icon Overlay */}
-                <div className="absolute -top-6 text-white/[0.03] group-hover:text-[#DD844B]/10 transition-colors duration-500 transform scale-[2.5] pointer-events-none">
-                  <IconComponent strokeWidth={1} />
-                </div>
+            <div className="flex flex-col items-center text-center relative px-4 group lg:border-l-2 lg:border-white/10">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 text-white/[0.07] pointer-events-none select-none transition-transform duration-500 group-hover:scale-110">
+                <UserCheck size={110} strokeWidth={1} />
+              </div>
+              <p className="text-4xl lg:text-5xl font-serif text-[#DD844B] font-normal tracking-wide relative z-10">
+                RN
+              </p>
+              <h4 className="text-xs font-bold text-white uppercase tracking-wider mt-4 relative z-10">
+                Clinical Direction
+              </h4>
+              <p className="text-xs text-stone-300 mt-2 leading-relaxed font-normal max-w-[200px] relative z-10">
+                Direct Registered Nurse management ensuring rigorous
+                professional standards.
+              </p>
+            </div>
 
-                {/* Main Metric Callout */}
-                <h3 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-normal text-[#DD844B] tracking-tight drop-shadow-sm selection:bg-[#DD844B]/20">
-                  {stat.number}
-                </h3>
-
-                {/* Structured Text Anchor */}
-                <p className="mt-4 text-white font-bold text-sm sm:text-base tracking-wide uppercase">
-                  {stat.label}
-                </p>
-
-                {/* Micro-Prose Validation Block */}
-                <p className="mt-2 text-white/70 text-xs sm:text-sm font-normal leading-relaxed max-w-[220px]">
-                  {stat.description}
-                </p>
-
-                {/* Elegant Mobile/Desktop Structural Border Separation */}
-                {index < 3 && (
-                  <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[1px] h-16 bg-white/10" />
-                )}
-              </motion.div>
-            );
-          })}
+            <div className="flex flex-col items-center text-center relative px-4 group sm:border-l sm:border-white/10 lg:border-l-2">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 text-white/[0.07] pointer-events-none select-none transition-transform duration-500 group-hover:scale-110">
+                <Calendar size={110} strokeWidth={1} />
+              </div>
+              <p className="text-4xl lg:text-5xl font-serif text-[#DD844B] font-normal tracking-wide relative z-10">
+                365
+              </p>
+              <h4 className="text-xs font-bold text-white uppercase tracking-wider mt-4 relative z-10">
+                Annual Continuity
+              </h4>
+              <p className="text-xs text-stone-300 mt-2 leading-relaxed font-normal max-w-[200px] relative z-10">
+                Uninterrupted operational support for permanent and respite
+                placement.
+              </p>
+            </div>
+          </div>
         </div>
-      </motion.section>
-    </div>
+      </div>
+    </section>
   );
 }
