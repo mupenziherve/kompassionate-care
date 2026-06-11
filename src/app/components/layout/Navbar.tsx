@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
@@ -85,12 +85,12 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="relative flex items-center h-full group">
-          <img
+          <Image
             src="/images/logo.png"
             alt="Kompassionate Care"
-            className={`w-auto object-contain transition-all duration-300 ${
-              isScrolled ? "h-14" : "h-18"
-            }`}
+            width={220}
+            height={80}
+            priority
           />
         </Link>
 

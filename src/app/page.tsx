@@ -8,6 +8,10 @@ import ContactSection from "./components/home/ContactSection";
 import StatsSection from "./components/home/StatsSection";
 import Footer from "./components/layout/Footer";
 import MapSection from "./components/home/MapSection";
+import OurTeamSection from "./components/home/OurTeamSection";
+
+
+
 
 
 export default function Home() {
@@ -18,8 +22,10 @@ export default function Home() {
       <TrustSection />
       <AboutPreview />
       <ServicesSection />
+      <OurTeamSection/>
       <StatsSection />
-      <TestimonialsSection />
+      
+    <TestimonialsSection />
       <ContactSection />
       <MapSection />
       <Footer />
