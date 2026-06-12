@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
@@ -15,7 +16,6 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// High-end service mapping directly from your brand specifications
 const SERVICES_DATA = [
   {
     title: "24-Hour Care",
@@ -50,6 +50,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   const pathname = usePathname();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -59,6 +60,11 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Reset mobile dropdown state when master menu closes
+  useEffect(() => {
+    if (!isOpen) setMobileServicesOpen(false);
+  }, [isOpen]);
 
   const handleMouseEnter = (menuName: string) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -94,7 +100,7 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Metamorphic Desktop Navigation Wrapper */}
+        {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-1 relative h-full">
           {NAV_LINKS.map((link, idx) => {
             const isActive = pathname === link.href;
@@ -113,10 +119,10 @@ export default function Navbar() {
               >
                 <Link
                   href={link.href}
-                  className={`relative px-4 py-2 text-sm font-semibold tracking-wide rounded-full flex items-center gap-1 transition-colors duration-200 ${
+                  className={`relative px-4 py-2 text-sm font-semibold tracking-wide rounded-full flex items-center gap-1 transition-all duration-300 transform ${
                     isActive
                       ? "text-[#DD844B]"
-                      : "text-gray-700 hover:text-gray-900"
+                      : "text-gray-600 hover:text-[#035346] hover:-translate-y-[0.5px]"
                   }`}
                 >
                   <span>{link.name}</span>
@@ -127,7 +133,6 @@ export default function Navbar() {
                     />
                   )}
 
-                  {/* Underline Active Track */}
                   {isActive && (
                     <motion.div
                       layoutId="navActiveTrack"
@@ -140,24 +145,22 @@ export default function Navbar() {
                     />
                   )}
 
-                  {/* Micro-Interaction Ambient Glow Pill */}
                   {hoveredIndex === idx && (
                     <motion.span
                       layoutId="navHoverPill"
-                      className="absolute inset-0 bg-gray-50 rounded-full -z-10"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
+                      className="absolute inset-0 bg-gradient-to-r from-[#035346]/[0.08] to-[#035346]/[0.02] rounded-full -z-10 border border-[#035346]/[0.12] shadow-[0_4px_12px_-3px_rgba(3,83,70,0.06)] backdrop-blur-[2px]"
+                      initial={{ opacity: 0, scale: 0.96 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
                       transition={{
                         type: "spring",
-                        stiffness: 400,
-                        damping: 32,
+                        stiffness: 380,
+                        damping: 28,
                       }}
                     />
                   )}
                 </Link>
 
-                {/* Metamorphic Mega Dropdown Menu */}
                 {link.hasDropdown && (
                   <AnimatePresence>
                     {activeMenu === link.name && (
@@ -168,7 +171,6 @@ export default function Navbar() {
                         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                         className="absolute top-[80%] left-1/2 -translate-x-1/2 w-[480px] bg-white rounded-3xl p-6 shadow-2xl border border-gray-100/80 z-50 grid gap-4"
                       >
-                        {/* Elegant Context Banner inside dropdown */}
                         <div className="bg-[#035346]/5 rounded-2xl p-3 px-4 flex items-center gap-2 text-xs text-[#035346] font-medium">
                           <MapPin size={14} className="text-[#DD844B]" />
                           <span>Adult Foster Care • Hillsboro, Oregon</span>
@@ -207,7 +209,7 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Global Action Controls */}
+        {/* Global Action Controls Desktop */}
         <div className="hidden lg:flex items-center gap-6">
           <a
             href="tel:+19713711444"
@@ -230,7 +232,7 @@ export default function Navbar() {
 
         {/* Mobile Toggle Trigger */}
         <button
-          className="lg:hidden p-2 text-gray-700"
+          className="lg:hidden p-2 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
         >
@@ -245,59 +247,109 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-gray-100 shadow-xl overflow-y-auto max-h-[calc(100vh-6rem)] z-40"
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-gray-100 shadow-2xl overflow-y-auto max-h-[calc(100vh-6rem)] z-40"
           >
-            <div className="px-6 pt-4 pb-8 flex flex-col gap-4">
-              {NAV_LINKS.map((link, idx) => (
-                <div key={link.href} className="flex flex-col gap-2">
+            <div className="px-6 pt-4 pb-8 flex flex-col gap-2">
+              {NAV_LINKS.map((link) => {
+                const isLinkActive = pathname === link.href;
+
+                // Mobile link layout with dropdown nesting support
+                if (link.hasDropdown) {
+                  return (
+                    <div key={link.href} className="flex flex-col">
+                      <button
+                        onClick={() =>
+                          setMobileServicesOpen(!mobileServicesOpen)
+                        }
+                        className={`flex items-center justify-between w-full py-3 px-4 rounded-xl text-base font-semibold transition-all duration-200 ${
+                          mobileServicesOpen || isLinkActive
+                            ? "text-[#035346] bg-[#035346]/[0.05]"
+                            : "text-gray-800 active:bg-gray-50"
+                        }`}
+                      >
+                        <span>{link.name}</span>
+                        <ChevronDown
+                          size={18}
+                          className={`transition-transform duration-300 text-gray-500 ${
+                            mobileServicesOpen
+                              ? "rotate-180 text-[#035346]"
+                              : ""
+                          }`}
+                        />
+                      </button>
+
+                      {/* Smooth Collapsible Drawer for Services */}
+                      <AnimatePresence initial={false}>
+                        {mobileServicesOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: "easeInOut" }}
+                            className="overflow-hidden pl-3 flex flex-col gap-1 mt-1 border-l-2 border-[#035346]/10 ml-4"
+                          >
+                            {SERVICES_DATA.map((service) => {
+                              const SubIcon = service.icon;
+                              return (
+                                <Link
+                                  key={service.href}
+                                  href={service.href}
+                                  onClick={() => setIsOpen(false)}
+                                  className="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm text-gray-600 font-medium transition-colors active:bg-[#035346]/[0.04] active:text-[#035346]"
+                                >
+                                  <div className="bg-[#035346]/5 text-[#035346] p-1.5 rounded-md">
+                                    <SubIcon size={14} />
+                                  </div>
+                                  <span>{service.title}</span>
+                                </Link>
+                              );
+                            })}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+
+                // Standard Mobile Navigation Link
+                return (
                   <Link
+                    key={link.href}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className={`block py-2 text-base font-semibold ${
-                      pathname === link.href
-                        ? "text-[#DD844B]"
-                        : "text-gray-800"
+                    className={`block py-3 px-4 rounded-xl text-base font-semibold transition-all duration-200 ${
+                      isLinkActive
+                        ? "text-[#DD844B] bg-[#DD844B]/[0.06]"
+                        : "text-gray-800 active:bg-gray-50"
                     }`}
                   >
                     {link.name}
                   </Link>
+                );
+              })}
 
-                  {/* Render flat layout variant for mobile dropdown nesting */}
-                  {link.hasDropdown && (
-                    <div className="pl-4 border-l-2 border-gray-100 flex flex-col gap-3 my-1">
-                      {SERVICES_DATA.map((service) => (
-                        <Link
-                          key={service.href}
-                          href={service.href}
-                          onClick={() => setIsOpen(false)}
-                          className="text-sm text-gray-500 font-medium py-1 hover:text-[#035346]"
-                        >
-                          {service.title}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-
-              <div className="pt-4 border-t border-gray-100 flex flex-col gap-4">
-                <div className="text-xs text-gray-400 font-medium flex items-center gap-1.5">
-                  <MapPin size={12} />
+              {/* Mobile Context Info & Action Panel */}
+              <div className="pt-6 mt-4 border-t border-gray-100 flex flex-col gap-4">
+                <div className="text-xs text-gray-400 font-medium flex items-center gap-2 px-4">
+                  <MapPin size={14} className="text-gray-400" />
                   <span>5110 SE Drake Rd, Hillsboro OR, 97123</span>
                 </div>
 
                 <a
                   href="tel:+19713711444"
-                  className="flex items-center gap-3 text-[#035346] font-bold py-1"
+                  className="flex items-center gap-3 text-[#035346] font-bold py-2 px-4 rounded-xl active:bg-[#035346]/[0.04] transition-colors"
                 >
                   <Phone size={16} />
                   <span>Call (971) 371-1444</span>
                 </a>
 
-                <button className="w-full bg-[#DD844B] text-white py-3.5 rounded-full font-semibold text-sm shadow-sm">
+                <motion.button
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-[#DD844B] text-white py-3.5 rounded-full font-semibold text-sm shadow-md shadow-[#DD844B]/10 transition-colors active:bg-[#c8743d]"
+                >
                   Schedule Tour
-                </button>
+                </motion.button>
               </div>
             </div>
           </motion.div>

@@ -6,10 +6,8 @@ import { Phone, Star, ShieldCheck, HeartHandshake } from "lucide-react";
 export default function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-[#035346] flex items-center justify-center">
-      {/* Content Container */}
       <div className="relative z-10 max-w-7xl w-full mx-auto px-6 py-20 lg:py-0">
         <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-center w-full">
-          {/* Left Side Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -32,7 +30,6 @@ export default function Hero() {
               You don't have to navigate this journey alone.
             </p>
 
-            {/* Action Buttons */}
             <div className="flex flex-wrap gap-4 mt-8">
               <button className="bg-[#DD844B] hover:bg-[#c8743d] text-white px-8 py-4 rounded-full font-semibold transition-all duration-200 shadow-md">
                 Schedule a Tour
@@ -46,7 +43,6 @@ export default function Hero() {
               </a>
             </div>
 
-            {/* Trust Badges Grid */}
             <div className="grid grid-cols-2 gap-y-4 gap-x-8 mt-12 pt-8 border-t border-white/10 text-white/90 max-w-md">
               <div className="flex items-center gap-2.5 text-sm">
                 <ShieldCheck size={18} className="text-[#DD844B]" />
@@ -70,28 +66,23 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Right Side Image Frame & Floating Overlays */}
           <div className="relative w-full max-w-lg lg:max-w-none aspect-[4/4] sm:aspect-[4/5] lg:h-[580px] xl:h-[620px] mx-auto flex items-center justify-center">
-            {/* Main Framed Container with Image */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               className="w-full h-full rounded-[2.5rem] border border-white/10 overflow-hidden shadow-2xl relative bg-teal-950/20"
             >
-              {/* Caregiver Image with dual-path auto-detection */}
               <img
                 src="/hero.png"
                 alt="Caregiver supporting an elderly woman"
                 className="w-full h-full object-cover object-center"
                 onError={(e) => {
-                  // If /hero.png fails, try checking inside the /images/ subfolder
                   e.currentTarget.src = "/images/hero.png";
                 }}
               />
             </motion.div>
 
-            {/* Floating Card: Trusted Care (Top Left Overlap) */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -115,7 +106,6 @@ export default function Hero() {
               </p>
             </motion.div>
 
-            {/* Floating Card: Call Anytime (Bottom Right Overlap) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
