@@ -50,7 +50,7 @@ h-[520px]
 "
             >
               <img
-                src="/images/home.jpg"
+                src="/images/home.png"
                 alt="Kompassionate Care Home"
                 className="
 w-full
