@@ -1,88 +1,58 @@
 "use client";
 
-import {
-  ShieldCheck,
-  HeartHandshake,
-  Clock,
-  UserRoundCheck,
-} from "lucide-react";
+import React from "react";
 import { motion } from "framer-motion";
+import { Shield, Clock, Heart, ClipboardList } from "lucide-react";
 
-const items = [
+interface TrustItem {
+  icon: React.ReactNode;
+  text: string;
+}
+
+const TRUST_ITEMS: TrustItem[] = [
   {
-    icon: ShieldCheck,
+    icon: <Shield className="w-5 h-5 text-[#DD844B]" />,
     text: "Nurse-Owned & Nurse-Led",
   },
   {
-    icon: Clock,
+    icon: <Clock className="w-5 h-5 text-[#DD844B]" />,
     text: "24-Hour Personalized Support",
   },
   {
-    icon: HeartHandshake,
+    icon: <Heart className="w-5 h-5 text-[#DD844B]" />,
     text: "Family-Focused Care",
   },
   {
-    icon: UserRoundCheck,
+    icon: <ClipboardList className="w-5 h-5 text-[#DD844B]" />,
     text: "Individual Care Plans",
   },
 ];
 
 export default function TrustBar() {
   return (
-    <section className="bg-[#035346] py-8">
+    <div className="bg-[#035346] py-8 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {items.map((item, index) => {
-            const Icon = item.icon;
-
-            return (
-              <motion.div
-                key={item.text}
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                transition={{
-                  delay: index * 0.15,
-                }}
-                viewport={{
-                  once: true,
-                }}
-                className="
-flex
-items-center
-gap-4
-text-white
-"
-              >
-                <div
-                  className="
-bg-white/10
-p-3
-rounded-2xl
-"
-                >
-                  <Icon size={24} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {TRUST_ITEMS.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+            >
+              <div className="flex items-center gap-4 text-white">
+                <div className="bg-white/10 p-3 rounded-2xl shrink-0">
+                  {item.icon}
                 </div>
-
-                <p
-                  className="
-text-sm
-font-medium
-leading-tight
-"
-                >
+                <p className="text-sm font-medium leading-tight text-white">
                   {item.text}
                 </p>
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
