@@ -63,18 +63,16 @@ const cardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
 export default function ServicesSection() {
   return (
     <section className="py-24 lg:py-32 bg-[#f6f6f3] relative overflow-hidden">
-      {/* Structural Backdrop Element */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#035346]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Top Section Header */}
         <div className="text-center max-w-3xl mx-auto">
           <span className="text-[#DD844B] uppercase font-bold tracking-[3px] text-xs">
             Our Care Specializations
@@ -91,7 +89,6 @@ export default function ServicesSection() {
           </p>
         </div>
 
-        {/* Premium Cascading Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -110,7 +107,6 @@ export default function ServicesSection() {
                 className="group bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-200/40 flex flex-col justify-between"
               >
                 <div>
-                  {/* Dynamic Floating Icon Ring */}
                   <div className="w-14 h-14 rounded-2xl bg-[#035346]/5 text-[#035346] flex items-center justify-center group-hover:bg-[#035346] group-hover:text-white transition-all duration-300 ease-in-out shrink-0">
                     <Icon
                       size={24}
@@ -127,7 +123,6 @@ export default function ServicesSection() {
                   </p>
                 </div>
 
-                {/* Inline Premium Page Navigation Trigger */}
                 <div className="mt-8 pt-4 border-t border-gray-50 flex items-center justify-between text-xs font-bold text-[#035346]/40 group-hover:text-[#DD844B] transition-colors duration-300">
                   <span className="uppercase tracking-wider">
                     Explore Care Protocol
@@ -140,13 +135,11 @@ export default function ServicesSection() {
             );
           })}
 
-          {/* High-Conversion Slot 6: Dedicated Professional Admissions Tile */}
           <motion.div
             variants={cardVariants}
             whileHover={{ y: -6 }}
             className="bg-gradient-to-br from-[#035346] to-[#023b32] rounded-[2rem] p-8 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-white/5 relative overflow-hidden"
           >
-            {/* Visual Accent Mask */}
             <div className="absolute -right-10 -bottom-10 w-44 h-44 bg-white/5 rounded-full blur-2xl pointer-events-none" />
 
             <div>

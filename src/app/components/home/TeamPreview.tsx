@@ -12,7 +12,6 @@ interface CaregiverMember {
   readonly bio: string;
 }
 
-
 const TEAM_REGISTRY: readonly CaregiverMember[] = [
   {
     name: "Compassionate Care Team",
@@ -44,7 +43,7 @@ const CARD_ANIMATION_PIPELINE: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
@@ -61,11 +60,9 @@ export default function TeamPreview() {
         } as React.CSSProperties
       }
     >
-      
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#035346]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
         <div className="max-w-3xl">
           <span className="inline-flex items-center gap-2 text-[#DD844B] uppercase tracking-[3px] text-xs font-bold">
             <Sparkles size={12} />
@@ -83,7 +80,6 @@ export default function TeamPreview() {
           </p>
         </div>
 
-       
         <motion.div
           variants={CONTAINER_STAGGER_PIPELINE}
           initial="hidden"
@@ -98,7 +94,6 @@ export default function TeamPreview() {
               whileHover={{ y: -6 }}
               className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl border border-stone-200/40 transition-shadow duration-300 group flex flex-col [will-change:transform]"
             >
-             
               <div className="aspect-[4/3] sm:h-[360px] w-full overflow-hidden bg-stone-100 relative">
                 <img
                   src={member.image}
@@ -109,7 +104,6 @@ export default function TeamPreview() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
 
-        
               <div className="p-8 flex flex-col flex-grow">
                 <span className="text-[11px] font-bold text-[#DD844B] uppercase tracking-wider bg-[#DD844B]/10 px-3 py-1 rounded-full self-start">
                   {member.role}
@@ -127,7 +121,6 @@ export default function TeamPreview() {
           ))}
         </motion.div>
 
-       
         <div className="mt-14 flex justify-start">
           <Link
             href="/our-team"

@@ -23,7 +23,7 @@ const IMMUTABLE_TESTIMONIAL_DATA: readonly ImmutableTestimonial[] = [
     headline: "A Warm, Safe Home",
     quote:
       "Moving here was the best decision I could have made. The team treats me with so much dignity, helps me patiently with my daily routines, and makes me feel truly independent.",
-    image: "/images/testimonials/dorothy.png", // Store in /public/images/testimonials/
+    image: "/images/testimonials/dorothy.png",
     rating: 5,
     tags: ["Assisted Daily Living", "Mobility Support", "Home-Cooked Meals"],
   },
@@ -34,8 +34,8 @@ const IMMUTABLE_TESTIMONIAL_DATA: readonly ImmutableTestimonial[] = [
     headline: "Exceptional Dementia Care",
     quote:
       "Finding a home that truly understands advanced Alzheimer's care for my elderly father was difficult. The staff here provides a patient, safe, and deeply loving environment.",
-    image: "/images/testimonials/thomas.png", // Store in /public/images/testimonials/
-    rating: 4, // Authentic "almost full" rating layout
+    image: "/images/testimonials/thomas.png",
+    rating: 4,
     tags: ["Memory Loss Care", "Alzheimer's Support", "Medication Safety"],
   },
   {
@@ -45,7 +45,7 @@ const IMMUTABLE_TESTIMONIAL_DATA: readonly ImmutableTestimonial[] = [
     headline: "True Companionship & Care",
     quote:
       "I was worried about feeling isolated living on my own, but the companionship here is wonderful. There is always someone to share stories with and look after my medical needs.",
-    image: "/images/testimonials/martha.jpg", // Store in /public/images/testimonials/
+    image: "/images/testimonials/martha.jpg",
     rating: 5,
     tags: ["24-Hour Supervision", "Companion Support", "Wellness Tracking"],
   },
@@ -67,7 +67,7 @@ const CARD_ANIMATION_PIPELINE: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
@@ -82,7 +82,6 @@ function TestimonialCard({ item }: { readonly item: ImmutableTestimonial }) {
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => setIsHovered(!isHovered)}
     >
-      {/* LAYER 1: Background Image & Static Dark Veil */}
       <div className="absolute inset-0 w-full h-full z-0">
         <img
           src={item.image}
@@ -97,7 +96,6 @@ function TestimonialCard({ item }: { readonly item: ImmutableTestimonial }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10" />
       </div>
 
-      {/* LAYER 2: DEFAULT FRONT CONTENT */}
       <div
         className={`absolute inset-0 p-8 flex flex-col justify-end z-10 transition-all duration-500 ease-[0.16,1,0.3,1] ${
           isHovered
@@ -117,7 +115,6 @@ function TestimonialCard({ item }: { readonly item: ImmutableTestimonial }) {
         </p>
       </div>
 
-      {/* LAYER 3: PREMIUM HOVER CONTENT LAYER */}
       <div
         className={`absolute inset-0 p-8 flex flex-col justify-between items-start z-20 transition-all duration-500 ease-[0.16,1,0.3,1] border-2 border-[#035346]/20 rounded-[2.5rem] ${
           isHovered
@@ -126,7 +123,6 @@ function TestimonialCard({ item }: { readonly item: ImmutableTestimonial }) {
         }`}
       >
         <div className="w-full">
-          {/* Dynamic Star Rating */}
           <div
             className="flex gap-1 text-[#DD844B]"
             aria-label={`Rated ${item.rating} out of 5 stars`}
@@ -144,7 +140,6 @@ function TestimonialCard({ item }: { readonly item: ImmutableTestimonial }) {
             ))}
           </div>
 
-          {/* Testimonial Quote - Forest Green Text */}
           <blockquote className="mt-5">
             <p className="text-[#035346] text-sm sm:text-base leading-relaxed font-medium italic">
               &ldquo;{item.quote}&rdquo;
@@ -157,7 +152,6 @@ function TestimonialCard({ item }: { readonly item: ImmutableTestimonial }) {
           </p>
         </div>
 
-        {/* Action Tags Panel */}
         <div className="w-full pt-4 border-t border-stone-200/60">
           <span className="text-xs text-[#035346] font-bold tracking-wider block mb-2.5 uppercase">
             Specialized Care Provided:
