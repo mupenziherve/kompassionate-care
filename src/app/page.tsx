@@ -18,19 +18,21 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Hero />
-      <TrustBar />
-      <WhyFamiliesTrust />
-      <AboutPreview />
-      <CareApproach />
-      <ServicesSection />
-      <OurHomePreview />
-      {/* <TeamPreview /> */}
-      <TestimonialsSection />
-      <FAQPreview />
-      <FinalCTA />
-      <MapSection />
-      <ContactSection />
+      <main className="min-h-screen bg-[#FAF8F4] overflow-hidden">
+        <Hero />
+        <TrustBar />
+        <WhyFamiliesTrust />
+        <AboutPreview />
+        <CareApproach />
+        <ServicesSection />
+        <OurHomePreview />
+        {/* <TeamPreview /> */}
+        <TestimonialsSection />
+        <FAQPreview />
+        <FinalCTA />
+        <MapSection />
+        <ContactSection />
+      </main>
       <Footer />
     </>
   );

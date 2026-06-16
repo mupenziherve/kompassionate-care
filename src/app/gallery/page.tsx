@@ -14,358 +14,215 @@ import {
   Tv,
   Bath,
   Compass,
+  Grid,
 } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 
-// Interface for Gallery Items
 interface GalleryItem {
   id: string;
   category:
+    | "front-porch"
     | "back-porch"
     | "back-rooms"
-    | "front-porch"
     | "kitchen"
     | "living-room"
     | "wash-room"
     | "balcony";
-  title: string;
-  description: string;
   imageUrl: string;
 }
 
 export default function GalleryPage() {
-  // Defaulting to "back-porch" since "View All" is removed
-  const [activeCategory, setActiveCategory] = useState<string>("back-porch");
+  const [activeCategory, setActiveCategory] = useState<string>("all");
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
-  // Complete dataset mapped out exactly by image quotas
   const galleryItems = useMemo<GalleryItem[]>(
     () => [
-      // === BACK PORCH (5 Images) ===
-      {
-        id: "bp-1",
-        category: "back-porch",
-        title: "Morning Sun Deck",
-        description:
-          "A peaceful outdoor retreat designed for fresh morning air and scenic backyard views.",
-        imageUrl: "/images/back-porch/img1.jpg",
-      },
-      {
-        id: "bp-2",
-        category: "back-porch",
-        title: "Shaded Veranda Seating",
-        description:
-          "Comfortable, sheltered outdoor lounge area perfect for quiet reading and relaxation.",
-        imageUrl: "/images/back-porch/img2.jpg",
-      },
-      {
-        id: "bp-3",
-        category: "back-porch",
-        title: "Afternoon Courtyard View",
-        description:
-          "Overlooking manicured, secure green spaces built to support restful fresh air exposure.",
-        imageUrl: "/images/back-porch/img3.jpg",
-      },
-      {
-        id: "bp-4",
-        category: "back-porch",
-        title: "Evening Sunset Patio",
-        description:
-          "Warmly lit evening deck area structured with non-slip surfaces for independent walks.",
-        imageUrl: "/images/back-porch/img4.jpg",
-      },
-      {
-        id: "bp-5",
-        category: "back-porch",
-        title: "Accessible Porch Ramp Overview",
-        description:
-          "Seamlessly integrated architectural safety parameters combined with a premium wood design.",
-        imageUrl: "/images/back-porch/img5.jpg",
-      },
-
-      // === BACK ROOMS (7 Images) ===
-      {
-        id: "br-1",
-        category: "back-rooms",
-        title: "Premium Private Suite A",
-        description:
-          "Serene, private residency space configured for quiet resting and personal comfort.",
-        imageUrl: "/images/back-rooms/img1.jpg",
-      },
-      {
-        id: "br-2",
-        category: "back-rooms",
-        title: "Sunlit Private Suite B",
-        description:
-          "Large, bright window layout showcasing a secure and therapeutic environment layout.",
-        imageUrl: "/images/back-rooms/img2.jpg",
-      },
-      {
-        id: "br-3",
-        category: "back-rooms",
-        title: "Orthopedic Suite Layout",
-        description:
-          "Fully configured independent living quarters prioritizing premium rest and tranquility.",
-        imageUrl: "/images/back-rooms/img3.jpg",
-      },
-      {
-        id: "br-4",
-        category: "back-rooms",
-        title: "Restful Night Setting",
-        description:
-          "Ambient personal light matrices customized to balance healthy deep sleep and visibility.",
-        imageUrl: "/images/back-rooms/img4.jpg",
-      },
-      {
-        id: "br-5",
-        category: "back-rooms",
-        title: "En-Suite Resident Quarters",
-        description:
-          "Spacious individual configuration layers optimizing personal spatial requirements.",
-        imageUrl: "/images/back-rooms/img5.jpg",
-      },
-      {
-        id: "br-6",
-        category: "back-rooms",
-        title: "Comfort Lounge Quarter",
-        description:
-          "Elegant, clutter-free private environments tailored to promote absolute peace of mind.",
-        imageUrl: "/images/back-rooms/img6.jpg",
-      },
-      {
-        id: "br-7",
-        category: "back-rooms",
-        title: "Integrated Safety Suite",
-        description:
-          "Discreetly placed supportive accessories paired perfectly with warm interior lines.",
-        imageUrl: "/images/back-rooms/img7.jpg",
-      },
-
-      // === FRONT PORCH (6 Images) ===
+      // === FRONT PORCH ===
       {
         id: "fp-1",
         category: "front-porch",
-        title: "Welcoming Facility Entrance",
-        description:
-          "A wide, majestic front entryway built to welcome arriving families and guests.",
-        imageUrl: "/images/front-porch/img1.jpg",
+        imageUrl: "/images/front-porch/1.png",
       },
       {
         id: "fp-2",
         category: "front-porch",
-        title: "Morning Social Porch",
-        description:
-          "Spacious outdoor setup optimal for socializing and greeting community visitors.",
-        imageUrl: "/images/front-porch/img2.jpg",
+        imageUrl: "/images/front-porch/2.png",
       },
       {
         id: "fp-3",
         category: "front-porch",
-        title: "Front Gardens Panorama",
-        description:
-          "Beautifully landscape-integrated seating layout boasting clean lines and safety visibility.",
-        imageUrl: "/images/front-porch/img3.jpg",
+        imageUrl: "/images/front-porch/3.png",
       },
       {
         id: "fp-4",
         category: "front-porch",
-        title: "Shaded Entry Promenade",
-        description:
-          "High awning structure shielding residents from intense heat while keeping airflow constant.",
-        imageUrl: "/images/front-porch/img4.jpg",
+        imageUrl: "/images/front-porch/4.png",
       },
       {
         id: "fp-5",
         category: "front-porch",
-        title: "Accessible Entrance Staging",
-        description:
-          "Zero-barrier transition paths allowing flawless mobility support into the building.",
-        imageUrl: "/images/front-porch/img5.jpg",
+        imageUrl: "/images/front-porch/5.png",
       },
       {
         id: "fp-6",
         category: "front-porch",
-        title: "Sunset Front Sitting Area",
-        description:
-          "Calm evening drop-off zones framed by comforting community light patterns.",
-        imageUrl: "/images/front-porch/img6.jpg",
+        imageUrl: "/images/front-porch/6.png",
       },
 
-      // === KITCHEN (6 Images) ===
+      // === BACK PORCH ===
       {
-        id: "ki-1",
-        category: "kitchen",
-        title: "Culinary Station Alpha",
-        description:
-          "Modern, professional clinical kitchen focusing on hygienic nutritional management.",
-        imageUrl: "/images/kitchen/img1.jpg",
+        id: "bp-1",
+        category: "back-porch",
+        imageUrl: "/images/back-porch/1.png",
       },
       {
-        id: "ki-2",
-        category: "kitchen",
-        title: "Fresh Dietary Prep Zone",
-        description:
-          "Dedicated sanitization lines where specialized partner menus are curated daily.",
-        imageUrl: "/images/kitchen/img2.jpg",
+        id: "bp-3",
+        category: "back-porch",
+        imageUrl: "/images/back-porch/3.png",
       },
       {
-        id: "ki-3",
-        category: "kitchen",
-        title: "Baking & Pastry Corner",
-        description:
-          "Dynamic therapeutic prep area encouraging fine motor skills through food arts.",
-        imageUrl: "/images/kitchen/img3.jpg",
-      },
-      {
-        id: "ki-4",
-        category: "kitchen",
-        title: "High-Tier Sanitization Equipment",
-        description:
-          "Completely certified industrial appliances upholding strict clinical safety guidelines.",
-        imageUrl: "/images/kitchen/img4.jpg",
-      },
-      {
-        id: "ki-5",
-        category: "kitchen",
-        title: "Organized Meal Staging",
-        description:
-          "Efficient plate and nutrition tracking logs prepared for swift dining delivery.",
-        imageUrl: "/images/kitchen/img5.jpg",
-      },
-      {
-        id: "ki-6",
-        category: "kitchen",
-        title: "Fresh Produce Storage",
-        description:
-          "Climate-controlled asset preservation layers ensuring maximum vitamin retention.",
-        imageUrl: "/images/kitchen/img6.jpg",
+        id: "bp-4",
+        category: "back-porch",
+        imageUrl: "/images/back-porch/4.png",
       },
 
-      // === LIVING ROOM (6 Images) ===
+      // === BACK ROOMS ===
+      {
+        id: "br-1",
+        category: "back-rooms",
+        imageUrl: "/images/back-rooms/2.png",
+      },
+      {
+        id: "br-2",
+        category: "back-rooms",
+        imageUrl: "/images/back-rooms/1.png",
+      },
+      {
+        id: "br-3",
+        category: "back-rooms",
+        imageUrl: "/images/back-rooms/3.png",
+      },
+      {
+        id: "br-4",
+        category: "back-rooms",
+        imageUrl: "/images/back-rooms/4.png",
+      },
+      {
+        id: "br-5",
+        category: "back-rooms",
+        imageUrl: "/images/back-rooms/5.png",
+      },
+      {
+        id: "br-6",
+        category: "back-rooms",
+        imageUrl: "/images/back-rooms/6.png",
+      },
+      {
+        id: "br-7",
+        category: "back-rooms",
+        imageUrl: "/images/back-rooms/7.png",
+      },
+
+      // === KITCHEN ===
+      { id: "ki-2", category: "kitchen", imageUrl: "/images/kitchen/2.png" },
+      { id: "ki-3", category: "kitchen", imageUrl: "/images/kitchen/3.png" },
+      { id: "ki-4", category: "kitchen", imageUrl: "/images/kitchen/4.png" },
+      { id: "ki-5", category: "kitchen", imageUrl: "/images/kitchen/5.png" },
+      { id: "ki-6", category: "kitchen", imageUrl: "/images/kitchen/6.png" },
+
+      // === LIVING ROOM ===
       {
         id: "lr-1",
         category: "living-room",
-        title: "Main Communal Hearth",
-        description:
-          "The heartwarming core of our facility, perfect for group gathering and storytelling.",
-        imageUrl: "/images/living-room/img1.jpg",
+        imageUrl: "/images/living-room/1.png",
       },
       {
         id: "lr-2",
         category: "living-room",
-        title: "Entertainment Lounge Area",
-        description:
-          "Cozy multimedia tracking zone set up for shared movie screenings and music therapy.",
-        imageUrl: "/images/living-room/img2.jpg",
+        imageUrl: "/images/living-room/2.png",
       },
       {
         id: "lr-3",
         category: "living-room",
-        title: "Quiet Reading Sanctuary",
-        description:
-          "Sunlit alcoves featuring comfortable structural seating to assist independent focus.",
-        imageUrl: "/images/living-room/img3.jpg",
+        imageUrl: "/images/living-room/3.png",
       },
       {
         id: "lr-4",
         category: "living-room",
-        title: "Interactive Game Layout",
-        description:
-          "Recreational table surfaces curated to stimulate healthy group interaction.",
-        imageUrl: "/images/living-room/img4.jpg",
+        imageUrl: "/images/living-room/4.png",
       },
       {
         id: "lr-5",
         category: "living-room",
-        title: "Central Living Atrium",
-        description:
-          "Beautifully high ceilings providing open visual lines and premium ventilation controls.",
-        imageUrl: "/images/living-room/img5.jpg",
+        imageUrl: "/images/living-room/5.png",
       },
       {
         id: "lr-6",
         category: "living-room",
-        title: "Family Meeting Pavilion",
-        description:
-          "Warm, luxury visitor spaces tailored to maintain tight-knit family relationships.",
-        imageUrl: "/images/living-room/img6.jpg",
+        imageUrl: "/images/living-room/6.png",
       },
 
-      // === WASH ROOM (3 Images) ===
+      // === WASH ROOM ===
       {
         id: "wr-1",
         category: "wash-room",
-        title: "Accessible Suite Bath",
-        description:
-          "Zero-barrier roll-in showers optimized for individual mobility and private dignity.",
-        imageUrl: "/images/wash-room/img1.jpg",
+        imageUrl: "/images/wash-room/1.png",
       },
       {
         id: "wr-2",
         category: "wash-room",
-        title: "Premium Safety Rail Layout",
-        description:
-          "High-tier security handrails integrated cleanly into high-end stone styling.",
-        imageUrl: "/images/wash-room/img2.jpg",
+        imageUrl: "/images/wash-room/2.png",
       },
       {
         id: "wr-3",
         category: "wash-room",
-        title: "Non-Slip Care Station",
-        description:
-          "Hygienic flooring materials mapped out meticulously to protect independent movement.",
-        imageUrl: "/images/wash-room/img3.jpg",
+        imageUrl: "/images/wash-room/3.png",
       },
 
-      // === BALCONY (5 Images) ===
-      {
-        id: "ba-1",
-        category: "balcony",
-        title: "Elevated View Deck",
-        description:
-          "Beautiful upper levels displaying scenic panoramas of the surrounding grounds.",
-        imageUrl: "/images/balcony/img1.jpg",
-      },
-      {
-        id: "ba-2",
-        category: "balcony",
-        title: "Breezy Morning Loggia",
-        description:
-          "Fresh air pocket spaces structured with reinforced architectural safety barriers.",
-        imageUrl: "/images/balcony/img2.jpg",
-      },
-      {
-        id: "ba-3",
-        category: "balcony",
-        title: "Upper Observation Point",
-        description:
-          "Calming outdoor vistas optimized to provide safe, comfortable environmental clarity.",
-        imageUrl: "/images/balcony/img3.jpg",
-      },
-      {
-        id: "ba-4",
-        category: "balcony",
-        title: "Relaxed Sunset Terrace",
-        description:
-          "Warm, sky-facing communal spots perfect for peaceful unwinding in the evening.",
-        imageUrl: "/images/balcony/img4.jpg",
-      },
-      {
-        id: "ba-5",
-        category: "balcony",
-        title: "Secure High Vista Walk",
-        description:
-          "Comfortable perimeter pathways providing safe outside tracking layers.",
-        imageUrl: "/images/balcony/img5.jpg",
-      },
+      // === BALCONY ===
+      { id: "ba-1", category: "balcony", imageUrl: "/images/balcony/1.png" },
+      { id: "ba-2", category: "balcony", imageUrl: "/images/balcony/2.png" },
+      { id: "ba-3", category: "balcony", imageUrl: "/images/balcony/3.png" },
+      { id: "ba-4", category: "balcony", imageUrl: "/images/balcony/4.png" },
+      { id: "ba-5", category: "balcony", imageUrl: "/images/balcony/5.png" },
     ],
     [],
   );
 
-  // Filter computation logic (No more "all" check)
+  // Filter items and securely shuffle images when "View All" is selected
   const filteredItems = useMemo(() => {
-    return galleryItems.filter((item) => item.category === activeCategory);
+    if (activeCategory !== "all") {
+      return galleryItems
+        .filter((item) => item.category === activeCategory)
+        .map((item) => ({
+          ...item,
+          displayTitle: item.category
+            .split("-")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" "),
+        }));
+    }
+
+    // Deterministic pseudo-random sorting array based on item ID string hashing
+    // This allows the "View All" images to appear mixed up, but prevents unneeded layout jumps
+    return [...galleryItems]
+      .sort((a, b) => {
+        const hashA = a.id
+          .split("")
+          .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        const hashB = b.id
+          .split("")
+          .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return ((hashA * 3) % 10) - ((hashB * 3) % 10);
+      })
+      .map((item) => ({
+        ...item,
+        displayTitle: item.category
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" "),
+      }));
   }, [activeCategory, galleryItems]);
 
   return (
@@ -418,20 +275,21 @@ export default function GalleryPage() {
                 transition={{ duration: 0.8, delay: 0.1 }}
                 className="lg:col-span-12 bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl shadow-stone-200/50 border border-stone-200/40 min-h-[500px]"
               >
-                {/* FILTER NAVIGATION - NO VIEW ALL, NO NUMBERS */}
+                {/* FILTER NAVIGATION */}
                 <div className="mb-10">
                   <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-4 text-center lg:text-left">
                     Filter Facility Environments
                   </label>
                   <div className="flex flex-wrap gap-2 justify-center lg:justify-start bg-stone-100 p-2 rounded-2xl max-w-max mx-auto lg:mx-0">
                     {[
-                      { id: "back-porch", label: "Back Porch", icon: TreePine },
-                      { id: "back-rooms", label: "Back Rooms", icon: Bed },
+                      { id: "all", label: "View All", icon: Grid },
                       {
                         id: "front-porch",
                         label: "Front Porch",
                         icon: DoorOpen,
                       },
+                      { id: "back-porch", label: "Back Porch", icon: TreePine },
+                      { id: "back-rooms", label: "Back Rooms", icon: Bed },
                       { id: "kitchen", label: "Kitchen", icon: Utensils },
                       { id: "living-room", label: "Living Room", icon: Tv },
                       { id: "wash-room", label: "Wash Room", icon: Bath },
@@ -477,12 +335,11 @@ export default function GalleryPage() {
                         <div className="relative h-64 w-full rounded-[1.5rem] overflow-hidden bg-stone-200">
                           <img
                             src={item.imageUrl}
-                            alt={item.title}
+                            alt={item.displayTitle}
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#023b32]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4" />
 
-                          {/* ZOOM EXPANSION ACTIVATOR */}
                           <button
                             type="button"
                             onClick={() => setSelectedImage(item)}
@@ -492,23 +349,20 @@ export default function GalleryPage() {
                           </button>
                         </div>
 
-                        <div className="p-4 pt-5">
+                        <div className="p-4 pt-4 pb-2">
                           <span className="text-[#DD844B] text-[10px] font-bold tracking-[2px] uppercase block mb-1">
                             {item.category.replace("-", " ")}
                           </span>
-                          <h3 className="text-lg font-serif font-normal text-[#035346] tracking-wide mb-2">
-                            {item.title}
+                          <h3 className="text-lg font-serif font-normal text-[#035346] tracking-wide">
+                            {item.displayTitle}
                           </h3>
-                          <p className="text-stone-500 text-xs leading-relaxed font-light">
-                            {item.description}
-                          </p>
                         </div>
                       </motion.div>
                     ))}
                   </AnimatePresence>
                 </motion.div>
 
-                {/* EMPTY FALLBACK CONFIGURATION */}
+                {/* EMPTY FALLBACK */}
                 {filteredItems.length === 0 && (
                   <div className="text-center py-24">
                     <Images size={48} className="mx-auto text-stone-300 mb-4" />
@@ -550,7 +404,7 @@ export default function GalleryPage() {
                 <div className="relative flex-1 overflow-hidden bg-stone-900 min-h-[250px] sm:min-h-[450px]">
                   <img
                     src={selectedImage.imageUrl}
-                    alt={selectedImage.title}
+                    alt={selectedImage.category}
                     className="w-full h-full object-contain max-h-[65vh] mx-auto"
                   />
                 </div>
@@ -561,11 +415,14 @@ export default function GalleryPage() {
                       {selectedImage.category.replace("-", " ")} Showcase Asset
                     </span>
                     <h2 className="text-xl sm:text-2xl font-serif text-[#035346]">
-                      {selectedImage.title}
+                      {selectedImage.category
+                        .split("-")
+                        .map(
+                          (word) =>
+                            word.charAt(0).toUpperCase() + word.slice(1),
+                        )
+                        .join(" ")}
                     </h2>
-                    <p className="mt-2 text-stone-500 text-xs sm:text-sm leading-relaxed font-light">
-                      {selectedImage.description}
-                    </p>
                   </div>
                   <button
                     type="button"
