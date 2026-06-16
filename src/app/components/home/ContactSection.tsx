@@ -19,7 +19,7 @@ interface FormState {
   message: string;
 }
 
-const CONTAINER_STAGGER_PIPELINE: Variants = {
+const CONTAINER_STAGGER: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -31,7 +31,7 @@ const CONTAINER_STAGGER_PIPELINE: Variants = {
   },
 };
 
-const ELEMENT_FADE_PIPELINE: Variants = {
+const ELEMENT_FADE: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -74,17 +74,14 @@ export default function ContactSection() {
     setSubmissionStatus("loading");
 
     try {
-      const response = await fetch(
-        "https://formspree.io/f/YOUR_FORMSPREE_ID_HERE",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(formData),
+      const response = await fetch("https://formspree.io/f/xeewvkja", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-      );
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         setSubmissionStatus("success");
@@ -99,6 +96,7 @@ export default function ContactSection() {
 
   return (
     <section
+      id="contact" // ADDED ID HERE FOR SMOOTH SCROLLING
       className="py-24 lg:py-32 bg-[#035346] text-white relative overflow-hidden"
       style={
         {
@@ -112,28 +110,28 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-12 gap-16 items-center">
           <motion.div
-            variants={CONTAINER_STAGGER_PIPELINE}
+            variants={CONTAINER_STAGGER}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             className="lg:col-span-5 flex flex-col justify-center"
           >
             <motion.span
-              variants={ELEMENT_FADE_PIPELINE}
+              variants={ELEMENT_FADE}
               className="text-[#DD844B] uppercase font-bold tracking-[3px] text-xs"
             >
               Contact Us
             </motion.span>
 
             <motion.h2
-              variants={ELEMENT_FADE_PIPELINE}
+              variants={ELEMENT_FADE}
               className="mt-4 text-4xl sm:text-5xl font-serif text-white leading-[1.15] font-normal tracking-wide"
             >
               Schedule a Private Tour Today
             </motion.h2>
 
             <motion.p
-              variants={ELEMENT_FADE_PIPELINE}
+              variants={ELEMENT_FADE}
               className="mt-6 text-stone-200 text-base leading-relaxed font-normal"
             >
               We would be deeply honored to answer your structural care
@@ -141,10 +139,7 @@ export default function ContactSection() {
               tailored to your loved one.
             </motion.p>
 
-            <motion.div
-              variants={ELEMENT_FADE_PIPELINE}
-              className="mt-10 space-y-4"
-            >
+            <motion.div variants={ELEMENT_FADE} className="mt-10 space-y-4">
               <a
                 href="https://maps.google.com/?q=5510+SE+Drake+Rd,+Hillsboro,+OR+97124"
                 target="_blank"

@@ -6,7 +6,7 @@ import AboutPreview from "./components/home/AboutPreview";
 import CareApproach from "./components/home/CareApproach";
 import ServicesSection from "./components/home/ServicesSection";
 import OurHomePreview from "./components/home/OurHomePreview";
-import TeamPreview from "./components/home/TeamPreview";
+// import TeamPreview from "./components/home/TeamPreview";
 import TestimonialsSection from "./components/home/TestimonialsSection";
 import FAQPreview from "./components/home/FAQPreview";
 import FinalCTA from "./components/home/FinalCTA";
@@ -25,7 +25,7 @@ export default function Home() {
       <CareApproach />
       <ServicesSection />
       <OurHomePreview />
-      <TeamPreview />
+      {/* <TeamPreview /> */}
       <TestimonialsSection />
       <FAQPreview />
       <FinalCTA />

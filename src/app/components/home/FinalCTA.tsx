@@ -2,46 +2,74 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Phone, Calendar } from "lucide-react";
+import { Phone, Calendar, ArrowRight, Sparkles } from "lucide-react";
 
 export default function FinalCTA() {
   return (
-    <section className="relative py-24 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#035346] to-[#013b32]" />
+    <section className="relative py-14 lg:py-16 px-6 overflow-hidden bg-[#035346]">
+      {/* High-End Ambient Visual Gradients & Textures */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#DD844B]/10 blur-[130px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] rounded-full bg-teal-950/60 blur-[120px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      </div>
 
-      <div className="relative max-w-4xl mx-auto text-center z-10">
+      <div className="relative max-w-5xl mx-auto z-10">
+        {/* Short, Low-Profile Glassmorphic Card Wrapper */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+          className="relative bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-12 text-center shadow-2xl shadow-black/20 overflow-hidden"
         >
-          <p className="uppercase tracking-[3px] text-xs font-bold text-[#DD844B]">
-            Get Started Today
-          </p>
-          <h2 className="mt-6 text-4xl md:text-6xl font-serif text-white font-bold leading-tight">
-            Experience Better Care
+          {/* Premium Tagline Badge */}
+          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-4 backdrop-blur-sm">
+            <Sparkles size={11} className="text-[#DD844B]" />
+            <span className="uppercase tracking-[3px] text-stone-200 font-bold text-[9px]">
+              An Invitation to Peace of Mind
+            </span>
+          </div>
+
+          {/* Compact Heading Layout */}
+          <h2 className="text-3xl md:text-4xl font-serif text-white font-normal leading-tight tracking-wide max-w-2xl mx-auto">
+            Step into a warmer standard of{" "}
+            <span className="text-[#DD844B] italic font-light">
+              professional care.
+            </span>
           </h2>
-          <p className="mt-6 max-w-2xl mx-auto text-white/80 text-lg leading-relaxed">
-            Schedule a personal tour and discover compassionate, professional
-            care built completely around your family's dynamic routines and
-            comfort parameters.
+
+          {/* Shortened Body Copy */}
+          <p className="mt-4 max-w-xl mx-auto text-stone-300/90 text-sm md:text-base leading-relaxed font-light">
+            Discover a welcoming environment built completely around your
+            family's routine. Schedule your private consultation today.
           </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 items-center">
+          {/* Action Controls Container */}
+          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4 items-center max-w-xs mx-auto sm:max-w-none">
+            {/* Primary Booking Button -> Contact Form */}
+            <a
+              href="/contact?type=tour"
+              className="group relative flex items-center justify-center gap-2.5 bg-[#DD844B] hover:bg-[#c8743d] text-white px-6 py-3.5 rounded-xl font-semibold text-xs uppercase tracking-wider transition-all duration-300 shadow-xl shadow-[#DD844B]/10 w-full sm:w-auto transform hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <Calendar
+                size={14}
+                className="shrink-0 group-hover:rotate-6 transition-transform duration-300"
+              />
+              <span>Book Guided Tour</span>
+              <ArrowRight
+                size={12}
+                className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shrink-0"
+              />
+            </a>
+
+            {/* Secondary Direct Support Line */}
             <a
               href="tel:+19713711444"
-              className="flex items-center justify-center gap-2 bg-[#DD844B] text-white px-8 py-4 rounded-full font-medium shadow-lg hover:bg-[#c9733b] transition-all duration-300 w-full sm:w-auto transform hover:-translate-y-0.5"
+              className="flex items-center justify-center gap-2.5 border border-white/20 bg-white/5 text-white px-6 py-3.5 rounded-xl font-semibold text-xs uppercase tracking-wider hover:bg-white hover:text-[#035346] hover:border-white transition-all duration-300 backdrop-blur-md w-full sm:w-auto transform hover:-translate-y-0.5 active:translate-y-0"
             >
-              <Phone size={18} />
-              <span>Call +1 (971) 371-1444</span>
-            </a>
-            <a
-              href="/contact"
-              className="flex items-center justify-center gap-2 border border-white/20 bg-white/5 text-white px-8 py-4 rounded-full font-medium hover:bg-white/10 transition-all duration-300 w-full sm:w-auto transform hover:-translate-y-0.5"
-            >
-              <Calendar size={18} />
-              <span>Book a Visit</span>
+              <Phone size={14} className="shrink-0" />
+              <span>Call (971) 371-1444</span>
             </a>
           </div>
         </motion.div>
