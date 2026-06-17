@@ -254,7 +254,6 @@ export default function Navbar() {
               {NAV_LINKS.map((link) => {
                 const isLinkActive = pathname === link.href;
 
-                // Mobile link layout with dropdown nesting support
                 if (link.hasDropdown) {
                   return (
                     <div key={link.href} className="flex flex-col">
@@ -279,7 +278,6 @@ export default function Navbar() {
                         />
                       </button>
 
-                      {/* Smooth Collapsible Drawer for Services */}
                       <AnimatePresence initial={false}>
                         {mobileServicesOpen && (
                           <motion.div
@@ -312,7 +310,6 @@ export default function Navbar() {
                   );
                 }
 
-                // Standard Mobile Navigation Link
                 return (
                   <Link
                     key={link.href}
@@ -329,7 +326,6 @@ export default function Navbar() {
                 );
               })}
 
-              {/* Mobile Context Info & Action Panel */}
               <div className="pt-6 mt-4 border-t border-gray-100 flex flex-col gap-4">
                 <div className="text-xs text-gray-400 font-medium flex items-center gap-2 px-4">
                   <MapPin size={14} className="text-gray-400" />
