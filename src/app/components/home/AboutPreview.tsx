@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { ShieldCheck, Heart, ArrowRight } from "lucide-react";
@@ -34,6 +34,7 @@ export default function AboutPreview() {
         } as React.CSSProperties
       }
     >
+      {/* Subtle organic background pattern */}
       <div
         className="absolute inset-0 bg-[radial-gradient(#035346_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.02] pointer-events-none select-none"
         style={{ contain: "strict" }}
@@ -42,6 +43,7 @@ export default function AboutPreview() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-12 gap-16 xl:gap-24 items-center">
+          {/* Left Column: Multi-Framed Image Block with Animations */}
           <motion.div
             variants={IMAGE_FADE_UP_PIPELINE}
             initial="hidden"
@@ -49,6 +51,7 @@ export default function AboutPreview() {
             viewport={{ once: true, margin: "-80px" }}
             className="lg:col-span-6 relative w-full aspect-[4/5] sm:h-[520px] lg:h-[580px] [will-change:transform]"
           >
+            {/* Decorative Luxury Accents */}
             <div
               className="absolute inset-4 -rotate-2 rounded-[2.5rem] bg-[#035346]/5 -z-10 select-none pointer-events-none"
               aria-hidden="true"
@@ -58,13 +61,19 @@ export default function AboutPreview() {
               aria-hidden="true"
             />
 
+            {/* Core Image Mask Container */}
             <div className="w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100 relative bg-stone-100">
               <img
                 src="/images/about.jpg"
                 alt="Kompassionate Care Community Lifestyle"
-                className="w-full h-full object-cover object-center transform hover:scale-103 transition-transform duration-700"
+                className="w-full h-full object-cover object-center transform hover:scale-[1.03] transition-transform duration-700"
                 loading="lazy"
                 decoding="async"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src =
+                    "https://images.unsplash.com/photo-1516627145497-ae6968895b74";
+                }}
               />
               <div
                 className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none select-none"
@@ -72,6 +81,7 @@ export default function AboutPreview() {
               />
             </div>
 
+            {/* Floating Dynamic Licensure Module */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -98,6 +108,7 @@ export default function AboutPreview() {
             </motion.div>
           </motion.div>
 
+          {/* Right Column: Content Strategy & Narrative Structure */}
           <motion.div
             variants={CONTENT_FADE_UP_PIPELINE}
             initial="hidden"
@@ -122,12 +133,13 @@ export default function AboutPreview() {
 
             <p className="mt-4 text-gray-500 text-sm sm:text-base leading-relaxed font-normal">
               We fundamentally understand that selecting the right environment
-              for your loved one is an deeply emotional milestone. Our
+              for your loved one is a deeply emotional milestone. Our
               operational core is built specifically to maximize daily
               independence while preserving absolute safety and clinical peace
               of mind.
             </p>
 
+            {/* Core Pillars Feature Mini-Grid */}
             <div className="grid sm:grid-cols-2 gap-6 w-full mt-8 pt-8 border-t border-stone-200/60">
               <div className="flex gap-3 items-start">
                 <div
@@ -174,6 +186,7 @@ export default function AboutPreview() {
               </div>
             </div>
 
+            {/* Premium Interactive Action Button */}
             <div className="mt-10 w-full sm:w-auto">
               <Link
                 href="/about"

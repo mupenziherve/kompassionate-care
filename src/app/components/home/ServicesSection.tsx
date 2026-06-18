@@ -63,30 +63,37 @@ const cardVariants = {
 
 export default function ServicesSection() {
   return (
-    <section className="py-16 lg:py-20 bg-[#035346] relative overflow-hidden">
-      {/* Controlled Atmospheric Ambient Gradients */}
-      <div className="absolute top-0 right-0 w-[600px] h-[400px] bg-gradient-to-b from-white/5 to-transparent rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -left-20 bottom-0 w-[300px] h-[300px] bg-[#DD844B]/5 rounded-full blur-2xl pointer-events-none" />
+    <section className="py-20 lg:py-24 bg-[#FAF8F4] relative overflow-hidden">
+      {/* ================= BACKGROUND IMAGE ECOSYSTEM ================= */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        <img
+          src="/your-custom-hero-image.png"
+          alt="Services Decorative Texture"
+          className="w-full h-full object-cover object-center opacity-40 mix-blend-multiply"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F4] via-[#FAF8F4]/20 to-[#FAF8F4]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F4] via-transparent to-[#FAF8F4]/40" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* Left Column: Fixed Context Block & Strategic CTA Placement */}
+          {/* Left Column: Context Block */}
           <div className="lg:col-span-5 flex flex-col items-start space-y-6 lg:max-w-md">
-            <span className="text-[#DD844B] uppercase font-bold tracking-[3px] text-xs px-3 py-1.5 bg-white/10 rounded-md backdrop-blur-xs border border-white/5">
+            <span className="text-[#DD844B] uppercase font-bold tracking-[3px] text-xs px-3 py-1.5 bg-[#035346]/5 rounded-md border border-[#035346]/10">
               Our Services
             </span>
 
-            <h2 className="text-3xl sm:text-4xl font-serif text-white leading-[1.2] font-normal tracking-wide">
+            <h2 className="text-3xl sm:text-4xl font-serif text-[#035346] leading-[1.2] font-normal tracking-wide">
               Comprehensive Support Built Around Dignity
             </h2>
 
-            <p className="text-stone-300/90 text-sm sm:text-base leading-relaxed font-light">
+            <p className="text-stone-600 text-sm sm:text-base leading-relaxed font-light">
               At Kompassionatecare, we provide continuous, professional care
               systems while unconditionally respecting and uplifting each
               resident's individual independence.
             </p>
 
-            <div className="pt-4 w-full sm:w-auto">
+            <div className="pt-2 w-full sm:w-auto">
               <Link
                 href="/services"
                 className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#DD844B] hover:bg-[#c8743d] text-white rounded-full text-xs sm:text-sm font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02] group"
@@ -100,7 +107,7 @@ export default function ServicesSection() {
             </div>
           </div>
 
-          {/* Right Column: High-Density Luxury Cards Matrix */}
+          {/* Right Column: High-Contrast Solid Dark Cards Matrix (No Links) */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -111,31 +118,29 @@ export default function ServicesSection() {
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Link
-                  href="/services"
+                <motion.div
                   key={index}
-                  className={`block group h-full ${
+                  variants={cardVariants}
+                  className={`group h-full ${
                     index === 4 ? "sm:col-span-2" : ""
                   }`}
                 >
-                  <motion.div
-                    variants={cardVariants}
-                    className="bg-white rounded-2xl p-6 border border-white/5 shadow-[0_4px_20px_rgba(0,0,0,0.08)] flex flex-col items-start h-full transition-all duration-500 ease-[0.16,1,0.3,1] hover:-translate-y-1.5 hover:shadow-[0_20px_38px_rgba(0,0,0,0.22)]"
-                  >
-                    {/* Professional Micro-Interactive Icon Container */}
-                    <div className="w-11 h-11 rounded-xl bg-[#035346]/5 text-[#035346] flex items-center justify-center transition-all duration-500 ease-[0.16,1,0.3,1] group-hover:bg-[#DD844B] group-hover:text-white group-hover:scale-105 group-hover:shadow-md group-hover:shadow-[#DD844B]/20">
+                  <div className="bg-[#035346] rounded-2xl p-6 border border-white/5 shadow-[0_10px_30px_rgba(3,83,70,0.15)] flex flex-col items-start h-full transition-all duration-500 ease-[0.16,1,0.3,1] hover:bg-[#045d4e] hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(3,83,70,0.3)]">
+                    {/* Icon Module */}
+                    <div className="w-11 h-11 rounded-xl bg-white/10 text-white flex items-center justify-center transition-all duration-500 ease-[0.16,1,0.3,1] group-hover:bg-[#DD844B] group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-[#DD844B]/30">
                       <Icon size={18} strokeWidth={2} />
                     </div>
 
-                    <h3 className="mt-5 text-base sm:text-lg font-bold text-[#035346] tracking-tight transition-colors duration-300">
+                    {/* Typography Layout */}
+                    <h3 className="mt-5 text-base sm:text-lg font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#DD844B]">
                       {service.title}
                     </h3>
 
-                    <p className="mt-2 text-stone-500 text-xs sm:text-sm leading-relaxed font-light transition-colors duration-300">
+                    <p className="mt-2 text-stone-300/90 text-xs sm:text-sm leading-relaxed font-light transition-colors duration-300">
                       {service.description}
                     </p>
-                  </motion.div>
-                </Link>
+                  </div>
+                </motion.div>
               );
             })}
           </motion.div>
