@@ -2,103 +2,107 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Shield, Award, Users, HeartHandshake } from "lucide-react";
+import { CircleCheck } from "lucide-react";
 
-const reasons = [
-  {
-    icon: Shield,
-    title: "Registered Nurse Managed",
-    description:
-      "Continuous clinical oversight ensures changes in health are caught early and addressed with professional medical competence.",
-  },
-  {
-    icon: Award,
-    title: "Premium Living Space",
-    description:
-      "A pristine, highly secure environment designed to offer both luxury comfort and absolute structural safety.",
-  },
-  {
-    icon: Users,
-    title: "High Caregiver Ratio",
-    description:
-      "Our dedicated staffing structure ensures your loved one receives rapid, unhurried attention whenever they need it.",
-  },
-  {
-    icon: HeartHandshake,
-    title: "An Intentional Family",
-    description:
-      "We are family-owned and values-driven. We foster deep emotional ties, real friendships, and genuine belonging.",
-  },
+const TRUST_REASONS = [
+  "Registered Nurse (RN) Led Care",
+  "24-Hour Personalized Support",
+  "Safe and Comfortable Home Environment",
+  "Family-Centered Approach",
+  "Compassionate and Experienced Caregivers",
+  "Individualized Care Plans",
+  "Respect for Independence and Dignity",
+  "Open Communication with Families",
+  "Commitment to Exceptional Quality of Life",
 ];
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.08 },
+    transition: { staggerChildren: 0.04 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
 export default function WhyFamiliesTrust() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-16 lg:py-20 bg-white relative overflow-hidden">
+      {/* Premium background gradient accent */}
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#035346]/5 rounded-full blur-3xl pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
-          <span className="text-[#DD844B] uppercase font-bold tracking-[3px] text-xs px-3 py-1.5 bg-[#035346]/5 rounded-md inline-block mb-4">
-            Unwavering Standards
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-normal text-[#035346] tracking-wide leading-tight">
-            Why Discerning Families <br />
-            <span className="italic text-[#DD844B]">Choose Our Home</span>
-          </h2>
-          <p className="mt-4 text-stone-500 text-sm sm:text-base font-light max-w-xl mx-auto">
-            We understand the weight of your decision. We have structured our
-            entire operational framework to give you total peace of mind.
-          </p>
-        </div>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Column: Heading and Custom Image Container */}
+          <div className="lg:col-span-5 flex flex-col space-y-6">
+            <div className="space-y-3">
+              <span className="uppercase tracking-[3px] text-xs font-bold text-[#DD844B] block">
+                Why Families Trust Us
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl text-[#035346] font-normal leading-[1.2] tracking-wide">
+                Care Built Around Trust, Comfort & Dignity
+              </h2>
+              <p className="text-stone-500 text-sm sm:text-base leading-relaxed font-light">
+                Every resident receives personalized support in a home
+                environment where families find total peace of mind,
+                consistency, and highly professional coordination.
+              </p>
+            </div>
 
-        {/* Content Reason Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6"
-        >
-          {reasons.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={idx}
-                variants={itemVariants}
-                className="flex flex-col items-center sm:items-start text-center sm:text-left group"
-              >
-                {/* Minimalist Icon Block */}
-                <div className="w-12 h-12 rounded-xl bg-[#035346]/5 text-[#035346] flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-[#035346] group-hover:text-white">
-                  <Icon size={20} strokeWidth={1.75} />
-                </div>
-
-                {/* Typography block */}
-                <h3 className="text-base sm:text-lg font-bold text-[#035346] tracking-tight mb-2.5">
-                  {item.title}
-                </h3>
-                <p className="text-stone-500 text-xs sm:text-sm font-light leading-relaxed">
-                  {item.description}
+            {/* Framed Image Container */}
+            <div className="relative pt-[75%] sm:pt-[55%] lg:pt-[80%] w-full rounded-2xl overflow-hidden shadow-lg bg-stone-100 group">
+              <div className="absolute inset-0 bg-[#035346]/10 mix-blend-multiply z-10 transition-opacity duration-500 group-hover:opacity-0" />
+              <img
+                src="/your-custom-hero-image.png"
+                alt="Kompassionate Care Community Standard"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-103"
+              />
+              <div className="absolute bottom-4 left-4 z-20 bg-white/95 backdrop-blur-xs py-2.5 px-4 rounded-xl border border-stone-200/40 shadow-xs">
+                <p className="text-[11px] font-bold text-[#035346] tracking-wider uppercase">
+                  Kompassionate Standard
                 </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: High-Density Luxury Trust Matrix */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            className="lg:col-span-7 grid sm:grid-cols-2 gap-3.5 w-full"
+          >
+            {TRUST_REASONS.map((reason, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className={`group h-full ${
+                  index === TRUST_REASONS.length - 1 ? "sm:col-span-2" : ""
+                }`}
+              >
+                <div className="p-4.5 rounded-xl bg-[#FAF8F4] border border-stone-200/40 flex gap-3.5 items-center h-full transition-all duration-500 ease-[0.16,1,0.3,1] hover:bg-white hover:border-[#035346]/20 hover:shadow-[0_12px_30px_rgba(3,83,70,0.05)]">
+                  {/* Icon Module */}
+                  <div className="w-8 h-8 rounded-lg bg-[#035346]/5 text-[#035346] flex items-center justify-center shrink-0 transition-all duration-500 ease-[0.16,1,0.3,1] group-hover:bg-[#DD844B] group-hover:text-white group-hover:scale-105">
+                    <CircleCheck size={16} strokeWidth={2.5} />
+                  </div>
+
+                  <p className="text-stone-700 font-semibold text-xs sm:text-sm tracking-tight transition-colors duration-300 group-hover:text-[#035346]">
+                    {reason}
+                  </p>
+                </div>
               </motion.div>
-            );
-          })}
-        </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

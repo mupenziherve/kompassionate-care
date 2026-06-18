@@ -6,7 +6,6 @@ import ServicesSection from "./components/home/ServicesSection";
 import CareApproach from "./components/home/CareApproach";
 import WhyFamiliesTrust from "./components/home/WhyFamiliesTrust";
 import OurHomePreview from "./components/home/OurHomePreview";
-import AdmissionProcess from "./components/home/AdmissionProcess";
 import TestimonialsSection from "./components/home/TestimonialsSection";
 import FAQPreview from "./components/home/FAQPreview";
 import FinalCTA from "./components/home/FinalCTA";
@@ -26,7 +25,6 @@ export default function Home() {
         <CareApproach />
         <WhyFamiliesTrust />
         <OurHomePreview />
-        <AdmissionProcess />
         <TestimonialsSection />
         <FAQPreview />
         <FinalCTA />

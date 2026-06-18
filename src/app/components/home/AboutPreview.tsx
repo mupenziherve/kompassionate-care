@@ -1,206 +1,48 @@
-"use client";
-
 import React from "react";
-import Link from "next/link";
-import { motion, Variants } from "framer-motion";
-import { ShieldCheck, Heart, ArrowRight } from "lucide-react";
-
-const IMAGE_FADE_UP_PIPELINE: Variants = {
-  hidden: { opacity: 0, x: -30 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
-const CONTENT_FADE_UP_PIPELINE: Variants = {
-  hidden: { opacity: 0, y: 25 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.75, delay: 0.15, ease: [0.16, 1, 0.3, 1] },
-  },
-};
 
 export default function AboutPreview() {
   return (
-    <section
-      className="py-24 lg:py-32 bg-white relative overflow-hidden"
-      style={
-        {
-          contentVisibility: "auto",
-          containIntrinsicSize: "0 700px",
-        } as React.CSSProperties
-      }
-    >
-      {/* Subtle organic background pattern */}
-      <div
-        className="absolute inset-0 bg-[radial-gradient(#035346_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.02] pointer-events-none select-none"
-        style={{ contain: "strict" }}
-        aria-hidden="true"
-      />
+    <section className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+        <div className="w-full h-[550px] rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100 relative bg-stone-100">
+          <img
+            src="/images/about.png"
+            alt="Kompassionate Care Community Lifestyle"
+            className="w-full h-full object-cover object-center transform hover:scale-[1.03] transition-transform duration-700"
+            loading="lazy"
+            decoding="async"
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none select-none"
+            aria-hidden="true"
+          />
+        </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-16 xl:gap-24 items-center">
-          {/* Left Column: Multi-Framed Image Block with Animations */}
-          <motion.div
-            variants={IMAGE_FADE_UP_PIPELINE}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="lg:col-span-6 relative w-full aspect-[4/5] sm:h-[520px] lg:h-[580px] [will-change:transform]"
-          >
-            {/* Decorative Luxury Accents */}
-            <div
-              className="absolute inset-4 -rotate-2 rounded-[2.5rem] bg-[#035346]/5 -z-10 select-none pointer-events-none"
-              aria-hidden="true"
-            />
-            <div
-              className="absolute inset-4 translate-x-4 translate-y-4 rotate-1 rounded-[2.5rem] border border-[#DD844B]/20 -z-10 select-none pointer-events-none"
-              aria-hidden="true"
-            />
+        <div>
+          <span className="text-[#DD844B] uppercase font-semibold tracking-wider">
+            About Us
+          </span>
 
-            {/* Core Image Mask Container */}
-            <div className="w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100 relative bg-stone-100">
-              <img
-                src="/images/about.jpg"
-                alt="Kompassionate Care Community Lifestyle"
-                className="w-full h-full object-cover object-center transform hover:scale-[1.03] transition-transform duration-700"
-                loading="lazy"
-                decoding="async"
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src =
-                    "https://images.unsplash.com/photo-1516627145497-ae6968895b74";
-                }}
-              />
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none select-none"
-                aria-hidden="true"
-              />
-            </div>
+          <h2 className="mt-4 text-4xl font-bold text-[#035346]">
+            A Home Built on Compassion, Dignity, and Trust
+          </h2>
 
-            {/* Floating Dynamic Licensure Module */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
-              className="absolute -bottom-6 -right-4 sm:-right-6 bg-[#035346] text-white p-5 rounded-2xl shadow-xl max-w-[220px] flex flex-col gap-2 border border-white/10 z-20"
-            >
-              <div
-                className="bg-white/10 w-8 h-8 rounded-lg flex items-center justify-center text-[#DD844B] shrink-0"
-                aria-hidden="true"
-              >
-                <ShieldCheck
-                  size={20}
-                  fill="white"
-                  className="text-[#035346]"
-                />
-              </div>
-              <p className="text-xs font-bold uppercase tracking-wider text-[#DD844B]">
-                Licensed Facility
-              </p>
-              <p className="text-xs text-white/90 leading-normal font-medium">
-                Registered Nurse (RN) Managed Adult Foster Home.
-              </p>
-            </motion.div>
-          </motion.div>
+          <p className="mt-6 text-gray-600 leading-relaxed">
+            Kompassionate Care is a Registered Nurse and caregiver-operated
+            Adult Foster Home dedicated to providing personalized care in a
+            safe, comfortable, and family-centered environment.
+          </p>
 
-          {/* Right Column: Content Strategy & Narrative Structure */}
-          <motion.div
-            variants={CONTENT_FADE_UP_PIPELINE}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="lg:col-span-6 flex flex-col items-start [will-change:transform]"
-          >
-            <span className="text-[#DD844B] uppercase font-bold tracking-[3px] text-xs">
-              Our Foundations
-            </span>
+          <p className="mt-4 text-gray-600 leading-relaxed">
+            We understand that choosing care for a loved one is one of life's
+            most important decisions. Our mission is to enhance quality of life
+            through compassionate support, professional care, and a welcoming
+            home atmosphere.
+          </p>
 
-            <h2 className="mt-4 text-4xl sm:text-5xl font-serif text-[#035346] leading-[1.15] font-normal tracking-wide">
-              A Home Built on Compassion, Dignity, and Trust
-            </h2>
-
-            <p className="mt-6 text-gray-600 text-base sm:text-lg leading-relaxed font-normal">
-              Kompassionate Care is a pristine, premium Registered Nurse and
-              caregiver-operated Adult Foster Home located in Oregon. We
-              specialize in tailoring personalized residential support within a
-              heavily secured, warm, and family-centered care ecosystem.
-            </p>
-
-            <p className="mt-4 text-gray-500 text-sm sm:text-base leading-relaxed font-normal">
-              We fundamentally understand that selecting the right environment
-              for your loved one is a deeply emotional milestone. Our
-              operational core is built specifically to maximize daily
-              independence while preserving absolute safety and clinical peace
-              of mind.
-            </p>
-
-            {/* Core Pillars Feature Mini-Grid */}
-            <div className="grid sm:grid-cols-2 gap-6 w-full mt-8 pt-8 border-t border-stone-200/60">
-              <div className="flex gap-3 items-start">
-                <div
-                  className="text-[#DD844B] mt-0.5 shrink-0"
-                  aria-hidden="true"
-                >
-                  <Heart
-                    size={18}
-                    fill="currentColor"
-                    className="text-[#DD844B]/10"
-                  />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-[#035346] tracking-wide">
-                    Homelike Comfort
-                  </h4>
-                  <p className="text-xs text-gray-500 mt-1 leading-relaxed font-normal">
-                    Preserving the warmth, rhythm, and familiar safety of true
-                    home living.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-3 items-start">
-                <div
-                  className="text-[#DD844B] mt-0.5 shrink-0"
-                  aria-hidden="true"
-                >
-                  <ShieldCheck
-                    size={18}
-                    fill="currentColor"
-                    className="text-[#DD844B]/10"
-                  />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-[#035346] tracking-wide">
-                    Clinical Peace of Mind
-                  </h4>
-                  <p className="text-xs text-gray-500 mt-1 leading-relaxed font-normal">
-                    Continuous RN oversight and meticulously managed medication
-                    protocols.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Premium Interactive Action Button */}
-            <div className="mt-10 w-full sm:w-auto">
-              <Link
-                href="/about"
-                className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-[#035346] hover:bg-[#023b32] text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-md shadow-[#035346]/10 group outline-none focus-visible:ring-2 focus-visible:ring-[#035346] focus-visible:ring-offset-4"
-                aria-label="Learn more about our organizational history and story"
-              >
-                <span>Learn More About Our Story</span>
-                <ArrowRight
-                  size={16}
-                  className="transform group-hover:translate-x-1 transition-transform"
-                />
-              </Link>
-            </div>
-          </motion.div>
+          <button className="mt-8 bg-[#035346] hover:opacity-90 transition text-white px-6 py-4 rounded-xl">
+            Learn More About Us
+          </button>
         </div>
       </div>
     </section>
