@@ -13,27 +13,41 @@ import {
   Shield,
   MapPin,
   ChevronDown,
+  Brain,
+  Activity,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const SERVICES_DATA = [
   {
-    title: "24-Hour Care",
-    desc: "Continuous around-the-clock supervision, companion support, and absolute safety.",
+    title: "24-Hour Care & Supervision",
+    desc: "Continuous around-the-clock clinical supervision, companion support, and safety.",
     icon: Clock,
     href: "/services/24-hour-care",
   },
   {
+    title: "Memory Care Support",
+    desc: "Specialized, structured environments tailored for Alzheimer's and Dementia.",
+    icon: Shield,
+    href: "/services/memory-care",
+  },
+  {
+    title: "Behavioral Health Support",
+    desc: "Compassionate plans designed to nurture cognitive wellness and routine stability.",
+    icon: Brain,
+    href: "/services/behavioral-health",
+  },
+  {
     title: "Hospice Support",
-    desc: "Compassionate end-of-life care focusing on comfort, grace, and family support.",
+    desc: "Comfort-focused care prioritizing absolute dignity and gentle family guidance.",
     icon: Heart,
     href: "/services/hospice-support",
   },
   {
-    title: "Specialized Care",
-    desc: "Dedicated programs tailored for memory loss, Alzheimer's, and recovery.",
-    icon: Shield,
-    href: "/services/specialized-care",
+    title: "Therapy & Physical Support",
+    desc: "Coordinated restoration programs focusing on strength, mobility, and recovery.",
+    icon: Activity,
+    href: "/services/therapy-support",
   },
 ];
 
@@ -61,7 +75,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Reset mobile dropdown state when master menu closes
   useEffect(() => {
     if (!isOpen) setMobileServicesOpen(false);
   }, [isOpen]);
@@ -169,14 +182,14 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
                         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                        className="absolute top-[80%] left-1/2 -translate-x-1/2 w-[480px] bg-white rounded-3xl p-6 shadow-2xl border border-gray-100/80 z-50 grid gap-4"
+                        className="absolute top-[80%] left-1/2 -translate-x-1/2 w-[520px] bg-white rounded-3xl p-6 shadow-2xl border border-gray-100/80 z-50 grid gap-4"
                       >
                         <div className="bg-[#035346]/5 rounded-2xl p-3 px-4 flex items-center gap-2 text-xs text-[#035346] font-medium">
                           <MapPin size={14} className="text-[#DD844B]" />
                           <span>Adult Foster Care • Hillsboro, Oregon</span>
                         </div>
 
-                        <div className="flex flex-col gap-1">
+                        <div className="flex flex-col gap-1 max-h-[380px] overflow-y-auto pr-1">
                           {SERVICES_DATA.map((service) => {
                             const IconComp = service.icon;
                             return (
