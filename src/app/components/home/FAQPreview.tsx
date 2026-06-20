@@ -179,18 +179,6 @@ export default function FAQPreview() {
             })}
           </div>
         </div>
-
-        {/* Global Structural Redirect Controls */}
-        <div className="text-center mt-16 lg:mt-20 border-t border-stone-200/50 pt-12">
-          <motion.a
-            whileHover={{ y: -1, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            href="/faq"
-            className="inline-flex items-center gap-2 bg-[#035346] hover:bg-[#024437] text-white px-8 py-4 rounded-full font-semibold text-sm shadow-md shadow-[#035346]/10 transition-colors duration-200"
-          >
-            <span>View All Knowledge Base Questions</span>
-          </motion.a>
-        </div>
       </div>
     </section>
   );
