@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, Variants } from "framer-motion";
-import { MapPin, Navigation, Clock, ParkingCircle, Eye } from "lucide-react";
+import { MapPin, Navigation, Clock, ParkingCircle } from "lucide-react";
 
 const SECTION_FADE_PIPELINE: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -114,14 +114,6 @@ export default function MapSection() {
                   className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                 />
               </a>
-
-              <a
-                href="/tour"
-                className="inline-flex items-center justify-center gap-2.5 border border-[#035346]/30 hover:border-[#035346] hover:bg-[#035346]/5 text-[#035346] px-7 py-4 rounded-full text-sm font-semibold transition-all duration-300"
-              >
-                <span>Schedule Private Tour</span>
-                <Eye size={15} />
-              </a>
             </div>
           </motion.div>
 
@@ -140,7 +132,7 @@ export default function MapSection() {
               allowFullScreen={false}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Kompassionate Care Location Map Map"
+              title="Kompassionate Care Location Map"
             />
           </motion.div>
         </div>
