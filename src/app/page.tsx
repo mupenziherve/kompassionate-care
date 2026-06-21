@@ -1,12 +1,11 @@
 import Navbar from "./components/layout/Navbar";
 import Hero from "./components/home/Hero";
 import TrustBar from "./components/home/TrustBar";
-import WhyFamiliesTrust from "./components/home/WhyFamiliesTrust";
 import AboutPreview from "./components/home/AboutPreview";
-import CareApproach from "./components/home/CareApproach";
 import ServicesSection from "./components/home/ServicesSection";
+import CareApproach from "./components/home/CareApproach";
+import WhyFamiliesTrust from "./components/home/WhyFamiliesTrust";
 import OurHomePreview from "./components/home/OurHomePreview";
-import TeamPreview from "./components/home/TeamPreview";
 import TestimonialsSection from "./components/home/TestimonialsSection";
 import FAQPreview from "./components/home/FAQPreview";
 import FinalCTA from "./components/home/FinalCTA";
@@ -18,19 +17,20 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Hero />
-      <TrustBar />
-      <WhyFamiliesTrust />
-      <AboutPreview />
-      <CareApproach />
-      <ServicesSection />
-      <OurHomePreview />
-      <TeamPreview />
-      <TestimonialsSection />
-      <FAQPreview />
-      <FinalCTA />
-      <MapSection />
-      <ContactSection />
+      <main className="min-h-screen bg-[#FAF8F4] overflow-hidden">
+        <Hero />
+        <TrustBar />
+        <AboutPreview />
+        <ServicesSection />
+        <CareApproach />
+        <WhyFamiliesTrust />
+        <OurHomePreview />
+        <TestimonialsSection />
+        <FAQPreview />
+        <FinalCTA />
+        <MapSection />
+        <ContactSection />
+      </main>
       <Footer />
     </>
   );

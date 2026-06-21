@@ -2,13 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
-import { MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
+import { MapPin, Phone, Mail, ArrowUpRight, ChevronRight } from "lucide-react";
 
-interface IconProps extends React.SVGProps<SVGSVGElement> {
-  size?: number | string;
-}
-
-const Facebook = ({ size = 24, ...props }: IconProps) => (
+// Social Media Icons
+const Facebook = ({ size = 20, ...props }: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -25,7 +22,7 @@ const Facebook = ({ size = 24, ...props }: IconProps) => (
   </svg>
 );
 
-const Instagram = ({ size = 24, ...props }: IconProps) => (
+const Instagram = ({ size = 20, ...props }: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -44,7 +41,7 @@ const Instagram = ({ size = 24, ...props }: IconProps) => (
   </svg>
 );
 
-const Linkedin = ({ size = 24, ...props }: IconProps) => (
+const Linkedin = ({ size = 20, ...props }: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -63,7 +60,7 @@ const Linkedin = ({ size = 24, ...props }: IconProps) => (
   </svg>
 );
 
-const Youtube = ({ size = 24, ...props }: IconProps) => (
+const Youtube = ({ size = 20, ...props }: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -81,86 +78,58 @@ const Youtube = ({ size = 24, ...props }: IconProps) => (
   </svg>
 );
 
-interface SocialLink {
-  readonly icon: React.ReactNode;
-  readonly href: string;
-  readonly label: string;
-}
-
-interface FooterLink {
-  readonly label: string;
-  readonly href: string;
-}
-
-const SOCIAL_PROFILES: readonly SocialLink[] = [
+const SOCIAL_PROFILES = [
   {
-    icon: <Facebook size={18} className="stroke-[2]" />,
-    href: "https://facebook.com",
-    label: "Facebook Profile",
+    icon: <Facebook />,
+    href: "https://www.facebook.com/profile.php?id=61590491733670&sk=reviews",
+    label: "Facebook",
   },
   {
-    icon: <Instagram size={18} className="stroke-[2]" />,
-    href: "https://instagram.com",
-    label: "Instagram Profile",
+    icon: <Instagram />,
+    href: "https://www.instagram.com/kompassionate.care/",
+    label: "Instagram",
   },
   {
-    icon: <Linkedin size={18} className="stroke-[2]" />,
-    href: "https://linkedin.com",
-    label: "LinkedIn Professional Page",
+    icon: <Linkedin />,
+    href: "https://www.linkedin.com/company/kompassionate-care/about/?viewAsMember=true",
+    label: "LinkedIn",
   },
   {
-    icon: <Youtube size={18} className="stroke-[2]" />,
-    href: "https://youtube.com",
-    label: "YouTube Channel Tour Videos",
+    icon: <Youtube />,
+    href: "https://www.youtube.com/@kompassionatecare",
+    label: "YouTube",
   },
-];
-
-const QUICK_LINKS: readonly FooterLink[] = [
-  { label: "Home", href: "/" },
-  { label: "About Our Story", href: "/about" },
-  { label: "Care Services", href: "/services" },
-  { label: "Our Home Gallery", href: "/gallery" },
-  { label: "Get In Touch", href: "/contact" },
-];
-
-const CARE_SERVICES: readonly string[] = [
-  "24-Hour Continuous Care",
-  "Specialized Memory Care",
-  "Hospice & Comfort Support",
-  "Behavioral Health Management",
-  "Physical Therapy Support",
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-[#035346] text-white border-t border-white/10 relative overflow-hidden select-none">
-      <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-6 py-16 lg:py-24 relative z-10">
-        <div className="grid md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-white/10">
-          <div className="lg:col-span-4 flex flex-col items-start">
-            <Link href="/" className="focus:outline-none rounded-xl">
+    <footer className="bg-[#035346] text-white pt-20 pb-10">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-20">
+          {/* Brand Column */}
+          <div className="col-span-1 lg:col-span-1">
+            <Link href="/" className="inline-block mb-6">
               <img
                 src="/images/logo2.png"
-                alt="Kompassionate Care Signature Logo"
-                className="h-16 w-auto object-contain transition-opacity duration-200 hover:opacity-95"
+                alt="Kompassionate Care"
+                width={220}
+                height={80}
+                className="w-[220px] h-auto object-contain"
               />
             </Link>
-            <p className="mt-6 text-stone-200/80 text-sm leading-relaxed font-normal max-w-sm">
+            <p className="text-stone-300 text-sm leading-relaxed mb-8">
               Providing compassionate, elite professional oversight alongside a
-              warm, family-centered ecosystem where senior residents live with
-              complete safety, personal dignity, and deep structural respect.
+              warm, family-centered ecosystem.
             </p>
-
-            <div className="flex gap-3 mt-8">
+            <div className="flex gap-4">
               {SOCIAL_PROFILES.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-stone-200 hover:text-white hover:bg-[#DD844B] hover:border-[#DD844B] transition-all duration-300 transform hover:-translate-y-1 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#DD844B]/40"
+                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#DD844B] hover:bg-[#DD844B] hover:text-white transition-all duration-300"
                 >
                   {social.icon}
                 </a>
@@ -168,102 +137,88 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="lg:col-span-2 lg:pl-4">
-            <h3 className="font-serif text-base text-[#DD844B] uppercase tracking-[2px] font-bold mb-6">
-              Navigation
-            </h3>
-            <nav className="flex flex-col space-y-3 text-sm text-stone-200/90">
-              {QUICK_LINKS.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="group flex items-center gap-1 hover:text-[#DD844B] transition-all duration-300 transform hover:translate-x-1.5 w-fit focus:outline-none"
-                >
-                  <span>{link.label}</span>
-                  <ArrowUpRight
-                    size={12}
-                    className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-[#DD844B]"
-                  />
-                </Link>
-              ))}
-            </nav>
+          {/* Navigation Column */}
+          <div>
+            <h4 className="font-serif text-lg text-white mb-6 tracking-wide">
+              Quick Links
+            </h4>
+            <ul className="space-y-4">
+              {["Home", "About", "Services", "Gallery", "Contact"].map(
+                (item) => (
+                  <li key={item}>
+                    <Link
+                      href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                      className="text-stone-300 hover:text-[#DD844B] flex items-center gap-2 transition-colors"
+                    >
+                      <ChevronRight size={14} />
+                      {item}
+                    </Link>
+                  </li>
+                ),
+              )}
+            </ul>
           </div>
 
-          <div className="lg:col-span-3">
-            <h3 className="font-serif text-base text-[#DD844B] uppercase tracking-[2px] font-bold mb-6">
+          {/* Services Column */}
+          <div>
+            <h4 className="font-serif text-lg text-white mb-6 tracking-wide">
               Care Disciplines
-            </h3>
-            <div className="flex flex-col space-y-3.5 text-sm text-stone-200/90 font-normal">
-              {CARE_SERVICES.map((service) => (
-                <div
-                  key={service}
-                  className="flex items-center gap-2 group cursor-default hover:text-white transition-colors duration-200"
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#DD844B]/40 group-hover:bg-[#DD844B] transition-colors duration-200" />
-                  <span>{service}</span>
-                </div>
+            </h4>
+            <ul className="space-y-4">
+              {[
+                "24-Hour Care",
+                "Memory Care",
+                "Hospice Support",
+                "Behavioral Health",
+                "Physical Therapy",
+              ].map((service) => (
+                <li key={service} className="text-stone-300 text-sm">
+                  {service}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
-          <div className="lg:col-span-3">
-            <h3 className="font-serif text-base text-[#DD844B] uppercase tracking-[2px] font-bold mb-6">
-              Contact Facility
-            </h3>
-            <address className="flex flex-col space-y-4 text-sm text-stone-200/90 font-normal not-italic">
-              <div className="flex items-start gap-3 group">
-                <MapPin size={16} className="text-[#DD844B] mt-0.5 shrink-0" />
-                <span className="leading-relaxed text-stone-200/80">
-                  5110 SE Drake Rd
-                  <br />
-                  Hillsboro OR, 97123
+          {/* Contact Column */}
+          <div>
+            <h4 className="font-serif text-lg text-white mb-6 tracking-wide">
+              Contact Us
+            </h4>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 text-stone-300">
+                <MapPin size={20} className="text-[#DD844B] shrink-0" />
+                <span className="text-sm">
+                  5110 SE Drake Rd, Hillsboro OR, 97123
                 </span>
               </div>
-
               <a
                 href="tel:9713711444"
-                className="flex items-center gap-3 w-fit hover:text-[#DD844B] transition-colors duration-200 focus:outline-none"
+                className="flex items-center gap-3 text-stone-300 hover:text-[#DD844B] transition-colors"
               >
-                <Phone size={16} className="text-[#DD844B] shrink-0" />
-                <span className="font-medium">+1 (971) 371-1444</span>
+                <Phone size={20} className="text-[#DD844B] shrink-0" />
+                <span className="text-sm">+1 (971) 371-1444</span>
               </a>
-
               <a
                 href="mailto:info@kompassionatecare.com"
-                className="flex items-center gap-3 w-fit hover:text-[#DD844B] transition-colors duration-200 focus:outline-none break-all"
+                className="flex items-center gap-3 text-stone-300 hover:text-[#DD844B] transition-colors"
               >
-                <Mail size={16} className="text-[#DD844B] shrink-0" />
-                <span className="font-medium">info@kompassionatecare.com</span>
+                <Mail size={20} className="text-[#DD844B] shrink-0" />
+                <span className="text-sm">info@kompassionatecare.com</span>
               </a>
-            </address>
+            </div>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-300/70 font-normal tracking-wide">
-          <div>
+        {/* Footer Bottom */}
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-stone-400 text-xs">
             &copy; {new Date().getFullYear()} Kompassionate Care. All Rights
             Reserved.
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
-            <Link
-              href="/privacy"
-              className="hover:text-[#DD844B] transition-colors duration-200 focus:outline-none"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="hover:text-[#DD844B] transition-colors duration-200 focus:outline-none"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="/accessibility"
-              className="hover:text-[#DD844B] transition-colors duration-200 focus:outline-none"
-            >
-              Accessibility Statement
-            </Link>
+          </p>
+          <div className="flex gap-6">
+            <span className="text-stone-400 text-xs">
+              Professional Nursing Care
+            </span>
           </div>
         </div>
       </div>

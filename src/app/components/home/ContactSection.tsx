@@ -8,6 +8,7 @@ import {
   Mail,
   Loader2,
   CheckCircle2,
+  XCircle,
   ArrowRight,
 } from "lucide-react";
 
@@ -18,7 +19,7 @@ interface FormState {
   message: string;
 }
 
-const CONTAINER_STAGGER_PIPELINE: Variants = {
+const CONTAINER_STAGGER: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -30,7 +31,7 @@ const CONTAINER_STAGGER_PIPELINE: Variants = {
   },
 };
 
-const ELEMENT_FADE_PIPELINE: Variants = {
+const ELEMENT_FADE: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -47,14 +48,15 @@ export default function ContactSection() {
     message: "",
   });
   const [submissionStatus, setSubmissionStatus] = useState<
-    "idle" | "loading" | "success"
+    "idle" | "loading" | "success" | "error"
   >("idle");
 
   const isFormValid = useMemo(() => {
     return (
       formData.name.trim() !== "" &&
       formData.email.trim() !== "" &&
-      formData.phone.trim() !== ""
+      formData.phone.trim() !== "" &&
+      formData.message.trim() !== ""
     );
   }, [formData]);
 
@@ -67,15 +69,60 @@ export default function ContactSection() {
 
   const handleFormSubmission = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!isFormValid) return;
 
     setSubmissionStatus("loading");
-    await new Promise((resolve) => setTimeout(resolve, 1600));
-    setSubmissionStatus("success");
+
+    try {
+      const response = await fetch("https://formspree.io/f/meebjzvq", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+
+        body: JSON.stringify({
+          _replyto: formData.email,
+
+          Company: "Kompassionate Care LLC",
+
+          "Receiver Email": "kompassionatecarellc@gmail.com",
+
+          "Full Name": formData.name,
+
+          "Email Address": formData.email,
+
+          "Phone Number": formData.phone,
+
+          Message: formData.message,
+
+          "Request Type": "Website Contact Form",
+        }),
+      });
+
+      if (response.ok) {
+        setSubmissionStatus("success");
+
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+      } else {
+        setSubmissionStatus("error");
+      }
+    } catch (error) {
+      console.error("Formspree submission error:", error);
+
+      setSubmissionStatus("error");
+    }
   };
 
   return (
     <section
+      id="contact" // ADDED ID HERE FOR SMOOTH SCROLLING
       className="py-24 lg:py-32 bg-[#035346] text-white relative overflow-hidden"
       style={
         {
@@ -89,28 +136,28 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-12 gap-16 items-center">
           <motion.div
-            variants={CONTAINER_STAGGER_PIPELINE}
+            variants={CONTAINER_STAGGER}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             className="lg:col-span-5 flex flex-col justify-center"
           >
             <motion.span
-              variants={ELEMENT_FADE_PIPELINE}
+              variants={ELEMENT_FADE}
               className="text-[#DD844B] uppercase font-bold tracking-[3px] text-xs"
             >
               Contact Us
             </motion.span>
 
             <motion.h2
-              variants={ELEMENT_FADE_PIPELINE}
+              variants={ELEMENT_FADE}
               className="mt-4 text-4xl sm:text-5xl font-serif text-white leading-[1.15] font-normal tracking-wide"
             >
               Schedule a Private Tour Today
             </motion.h2>
 
             <motion.p
-              variants={ELEMENT_FADE_PIPELINE}
+              variants={ELEMENT_FADE}
               className="mt-6 text-stone-200 text-base leading-relaxed font-normal"
             >
               We would be deeply honored to answer your structural care
@@ -118,12 +165,9 @@ export default function ContactSection() {
               tailored to your loved one.
             </motion.p>
 
-            <motion.div
-              variants={ELEMENT_FADE_PIPELINE}
-              className="mt-10 space-y-4"
-            >
+            <motion.div variants={ELEMENT_FADE} className="mt-10 space-y-4">
               <a
-                href="https://maps.google.com/?q=5110+SE+Drake+Rd,+Hillsboro,+OR+97123"
+                href="https://maps.google.com/?q=5510+SE+Drake+Rd,+Hillsboro,+OR+97124"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
@@ -136,41 +180,60 @@ export default function ContactSection() {
                     Location
                   </p>
                   <p className="text-stone-100 mt-0.5 font-medium">
-                    5110 SE Drake Rd, Hillsboro OR, 97123
+                    5510 SE Drake Rd, Hillsboro, OR 97124
                   </p>
                 </div>
               </a>
 
-              <a
-                href="tel:9713711444"
-                className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
-              >
-                <div className="bg-[#DD844B] text-white p-3 rounded-xl shrink-0 transition-transform group-hover:scale-105">
-                  <Phone size={18} />
-                </div>
-                <div className="text-sm">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#DD844B]">
-                    Direct Line
-                  </p>
-                  <p className="text-stone-100 mt-0.5 font-medium">
-                    +1 (971) 371-1444
-                  </p>
-                </div>
-              </a>
+              <div className="flex flex-col gap-4 sm:flex-row sm:gap-3">
+                <a
+                  href="tel:+19713711444"
+                  className="flex-1 flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
+                >
+                  <div className="bg-[#DD844B] text-white p-3 rounded-xl shrink-0 transition-transform group-hover:scale-105">
+                    <Phone size={18} />
+                  </div>
+                  <div className="text-sm">
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#DD844B]">
+                      Primary Line
+                    </p>
+                    <p className="text-stone-100 mt-0.5 font-medium whitespace-nowrap">
+                      +1 (971) 371-1444
+                    </p>
+                  </div>
+                </a>
+
+                <a
+                  href="tel:+15034438325"
+                  className="flex-1 flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
+                >
+                  <div className="bg-[#DD844B] text-white p-3 rounded-xl shrink-0 transition-transform group-hover:scale-105">
+                    <Phone size={18} />
+                  </div>
+                  <div className="text-sm">
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#DD844B]">
+                      Secondary Line
+                    </p>
+                    <p className="text-stone-100 mt-0.5 font-medium whitespace-nowrap">
+                      +1 (503) 443-8325
+                    </p>
+                  </div>
+                </a>
+              </div>
 
               <a
-                href="mailto:info@kompassionatecare.com"
+                href="mailto:kompassionatecarellc@gmail.com"
                 className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
               >
                 <div className="bg-[#DD844B] text-white p-3 rounded-xl shrink-0 transition-transform group-hover:scale-105">
                   <Mail size={18} />
                 </div>
-                <div className="text-sm">
+                <div className="text-sm overflow-hidden text-ellipsis">
                   <p className="text-xs font-bold uppercase tracking-wider text-[#DD844B]">
-                    Email Infrastructure
+                    Email Communications
                   </p>
-                  <p className="text-stone-100 mt-0.5 font-medium">
-                    info@kompassionatecare.com
+                  <p className="text-stone-100 mt-0.5 font-medium block overflow-hidden text-ellipsis break-all">
+                    kompassionatecarellc@gmail.com
                   </p>
                 </div>
               </a>
@@ -185,7 +248,7 @@ export default function ContactSection() {
             className="lg:col-span-7 bg-white rounded-[2.5rem] p-8 lg:p-12 text-gray-900 shadow-2xl relative overflow-hidden border border-stone-200/40"
           >
             <AnimatePresence mode="wait">
-              {submissionStatus !== "success" ? (
+              {submissionStatus === "idle" || submissionStatus === "loading" ? (
                 <motion.div
                   key="contact-form-layout"
                   exit={{ opacity: 0, y: -20 }}
@@ -195,8 +258,8 @@ export default function ContactSection() {
                     Request Secure Information
                   </h3>
                   <p className="text-gray-500 text-xs mt-1 font-normal">
-                    Fill out the configuration parameters below to initialize
-                    communication.
+                    Fill out the parameters below to initialize communications
+                    with our team.
                   </p>
 
                   <form
@@ -263,6 +326,7 @@ export default function ContactSection() {
                       <textarea
                         id="form-input-message"
                         name="message"
+                        required
                         rows={4}
                         value={formData.message}
                         onChange={handleInputChange}
@@ -294,7 +358,7 @@ export default function ContactSection() {
                     </button>
                   </form>
                 </motion.div>
-              ) : (
+              ) : submissionStatus === "success" ? (
                 <motion.div
                   key="contact-success-layout"
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -318,6 +382,31 @@ export default function ContactSection() {
                     className="mt-8 text-xs font-bold text-[#DD844B] uppercase tracking-wider hover:text-[#c9733b] transition-colors duration-200"
                   >
                     Submit New Request
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="contact-error-layout"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-col items-center text-center py-12"
+                >
+                  <div className="text-red-600 bg-red-50 p-4 rounded-full">
+                    <XCircle size={44} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="mt-6 text-2xl font-serif text-red-900 tracking-wide">
+                    Submission Failed
+                  </h3>
+                  <p className="mt-3 text-sm text-gray-600 max-w-sm leading-relaxed font-normal">
+                    Something went wrong during form transmission. Please check
+                    your network connection or try again directly via email.
+                  </p>
+                  <button
+                    onClick={() => setSubmissionStatus("idle")}
+                    className="mt-8 text-xs font-bold text-[#035346] uppercase tracking-wider hover:underline transition-all duration-200"
+                  >
+                    Try Resubmitting Form
                   </button>
                 </motion.div>
               )}

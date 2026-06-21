@@ -84,8 +84,9 @@ export default function OurHomePreview() {
               ))}
             </div>
 
+            {/* Link updated to reference your gallery page route */}
             <Link
-              href="/our-home"
+              href="/gallery"
               className="mt-10 inline-flex items-center gap-3 bg-[#035346] text-white px-7 py-4 rounded-full font-semibold hover:bg-[#024236] transition"
             >
               Visit Our Home
