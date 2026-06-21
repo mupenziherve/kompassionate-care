@@ -57,7 +57,10 @@ const cardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    transition: {
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1] as any, // Fixed TypeScript error
+    },
   },
 };
 
@@ -125,9 +128,9 @@ export default function ServicesSection() {
                     index === 4 ? "sm:col-span-2" : ""
                   }`}
                 >
-                  <div className="bg-[#035346] rounded-2xl p-6 border border-white/5 shadow-[0_10px_30px_rgba(3,83,70,0.15)] flex flex-col items-start h-full transition-all duration-500 ease-[0.16,1,0.3,1] hover:bg-[#045d4e] hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(3,83,70,0.3)]">
+                  <div className="bg-[#035346] rounded-2xl p-6 border border-white/5 shadow-[0_10px_30px_rgba(3,83,70,0.15)] flex flex-col items-start h-full transition-all duration-500 hover:bg-[#045d4e] hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(3,83,70,0.3)]">
                     {/* Icon Module */}
-                    <div className="w-11 h-11 rounded-xl bg-white/10 text-white flex items-center justify-center transition-all duration-500 ease-[0.16,1,0.3,1] group-hover:bg-[#DD844B] group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-[#DD844B]/30">
+                    <div className="w-11 h-11 rounded-xl bg-white/10 text-white flex items-center justify-center transition-all duration-500 group-hover:bg-[#DD844B] group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-[#DD844B]/30">
                       <Icon size={18} strokeWidth={2} />
                     </div>
 
