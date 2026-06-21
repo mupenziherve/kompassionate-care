@@ -69,27 +69,53 @@ export default function ContactSection() {
 
   const handleFormSubmission = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!isFormValid) return;
 
     setSubmissionStatus("loading");
 
     try {
-      const response = await fetch("https://formspree.io/f/xeewvkja", {
+      const response = await fetch("https://formspree.io/f/meebjzvq", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(formData),
+
+        body: JSON.stringify({
+          _replyto: formData.email,
+
+          Company: "Kompassionate Care LLC",
+
+          "Receiver Email": "kompassionatecarellc@gmail.com",
+
+          "Full Name": formData.name,
+
+          "Email Address": formData.email,
+
+          "Phone Number": formData.phone,
+
+          Message: formData.message,
+
+          "Request Type": "Website Contact Form",
+        }),
       });
 
       if (response.ok) {
         setSubmissionStatus("success");
-        setFormData({ name: "", email: "", phone: "", message: "" });
+
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
       } else {
         setSubmissionStatus("error");
       }
     } catch (error) {
+      console.error("Formspree submission error:", error);
+
       setSubmissionStatus("error");
     }
   };

@@ -119,27 +119,38 @@ export default function ContactPage() {
   };
 
   // Submission handler for general messages
+  // Submission handler for general messages
   const handleGeneralSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmissionStatus("loading");
+
     try {
-      const response = await fetch("https://formspree.io/f/xeewvkja", {
+      const response = await fetch("https://formspree.io/f/meebjzvq", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
+          _replyto: generalForm.email,
           "Inquiry Type": "General Care Inquiry & Support",
           "Sender Name": generalForm.name,
           "Email Address": generalForm.email,
           "Phone Number": generalForm.phone,
           "Message Details": generalForm.message,
+          "Company Email": "kompassionatecarellc@gmail.com",
         }),
       });
+
       if (response.ok) {
         setSubmissionStatus("success");
-        setGeneralForm({ name: "", email: "", phone: "", message: "" });
+
+        setGeneralForm({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
       } else {
         setSubmissionStatus("error");
       }
@@ -147,7 +158,6 @@ export default function ContactPage() {
       setSubmissionStatus("error");
     }
   };
-
   // Submission handler for multi-step guided tours
   const handleTourSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -182,13 +192,15 @@ export default function ContactPage() {
     `;
 
     try {
-      const response = await fetch("https://formspree.io/f/xeewvkja", {
+      const response = await fetch("https://formspree.io/f/meebjzvq", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
+          _replyto: tourForm.email,
+
           "Subject Filter": `🚨 New Private Tour Request - ${tourForm.fullName}`,
           "Inquiry Type": "Adult Foster Home Private Tour Booking",
           "Visitor Name": tourForm.fullName,
