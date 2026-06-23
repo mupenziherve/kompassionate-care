@@ -867,6 +867,10 @@ export default function ContactPage() {
                             <p className="text-stone-800 mt-0.5 font-semibold text-sm">
                               +1 (971) 371-1444
                             </p>
+                            <br />
+                            <p className="text-stone-800 mt-0.5 font-semibold text-sm">
+                              +1 (469) 487-4894
+                            </p>
                           </div>
                         </a>
 
@@ -881,7 +885,7 @@ export default function ContactPage() {
                             <p className="text-stone-800 mt-0.5 font-medium text-sm leading-relaxed">
                               5510 SE Drake Rd
                               <br />
-                              Hillsboro, OR 97124
+                              Hillsboro, OR 97129
                             </p>
                           </div>
                         </div>

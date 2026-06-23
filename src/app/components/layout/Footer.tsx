@@ -188,7 +188,7 @@ export default function Footer() {
               <div className="flex items-start gap-3 text-stone-300">
                 <MapPin size={20} className="text-[#DD844B] shrink-0" />
                 <span className="text-sm">
-                  5110 SE Drake Rd, Hillsboro OR, 97123
+                  5110 SE Drake Rd, Hillsboro OR,97129
                 </span>
               </div>
               <a
@@ -196,14 +196,19 @@ export default function Footer() {
                 className="flex items-center gap-3 text-stone-300 hover:text-[#DD844B] transition-colors"
               >
                 <Phone size={20} className="text-[#DD844B] shrink-0" />
-                <span className="text-sm">+1 (971) 371-1444</span>
+
+                <span className="text-sm leading-relaxed font-medium">
+                  +1 (971) 371-1444
+                  <br />
+                  +1 (469) 487-4894
+                </span>
               </a>
               <a
                 href="mailto:info@kompassionatecare.com"
                 className="flex items-center gap-3 text-stone-300 hover:text-[#DD844B] transition-colors"
               >
                 <Mail size={20} className="text-[#DD844B] shrink-0" />
-                <span className="text-sm">info@kompassionatecare.com</span>
+                <span className="text-sm">kompassionatecarellc@gmail.com</span>
               </a>
             </div>
           </div>
