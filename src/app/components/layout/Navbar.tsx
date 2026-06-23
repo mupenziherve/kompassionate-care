@@ -145,7 +145,7 @@ export default function Navbar() {
               <div className="pt-6 mt-4 border-t border-gray-100 flex flex-col gap-4">
                 <div className="text-xs text-gray-400 font-medium flex items-center gap-2 px-4">
                   <MapPin size={14} className="text-gray-400" />
-                  <span>5110 SE Drake Rd, Hillsboro OR, 97123</span>
+                  <span>5110 SE Drake Rd, Hillsboro OR, 97129</span>
                 </div>
 
                 <a

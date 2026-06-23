@@ -60,7 +60,7 @@ export default function MapSection() {
                     <p className="text-sm text-gray-600 mt-1 leading-relaxed font-normal">
                       5110 SE Drake Rd
                       <br />
-                      Hillsboro OR, 97123
+                      Hillsboro OR, 97129
                     </p>
                   </div>
                 </div>
@@ -74,11 +74,9 @@ export default function MapSection() {
                       Visiting Hours
                     </h4>
                     <p className="text-sm text-gray-600 mt-1 leading-relaxed font-normal">
-                      Daily: 10:00 AM – 7:00 PM
+                      Visiting Hours: 24/7 We're always here to welcome and
+                      support families.
                       <br />
-                      <span className="text-xs text-gray-500 italic">
-                        Custom family arrangements accommodated
-                      </span>
                     </p>
                   </div>
                 </div>
@@ -103,7 +101,7 @@ export default function MapSection() {
 
             <div className="mt-12 pt-8 border-t border-stone-200/80 flex flex-col sm:flex-row gap-4 w-full">
               <a
-                href="https://maps.google.com/?q=5110+SE+Drake+Rd,+Hillsboro,+OR+97123"
+                href="https://maps.google.com/?q=5110+SE+Drake+Rd,+Hillsboro,+OR+97129"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2.5 bg-[#035346] hover:bg-[#023b32] text-white px-7 py-4 rounded-full text-sm font-semibold transition-all duration-300 shadow-md shadow-[#035346]/10 group"

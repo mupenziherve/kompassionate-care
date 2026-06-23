@@ -40,13 +40,13 @@ export default function Hero() {
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full w-fit mb-5">
               <HeartHandshake size={14} className="text-[#DD844B]" />
               <span className="uppercase tracking-[3px] text-stone-100 font-bold text-[11px]">
-                With you, every step of the way
+                With You Every Step
               </span>
             </div>
 
             {/* Heading */}
             <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] max-w-4xl">
-              Because your loved ones deserve more than care —
+              Because your loved ones deserve more than care 
               <span className="block text-[#DD844B] italic mt-3 font-light">
                 They deserve a home.
               </span>

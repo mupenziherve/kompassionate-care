@@ -122,7 +122,7 @@ export default function ContactSection() {
 
   return (
     <section
-      id="contact" // ADDED ID HERE FOR SMOOTH SCROLLING
+      id="contact"
       className="py-24 lg:py-32 bg-[#035346] text-white relative overflow-hidden"
       style={
         {
@@ -185,19 +185,20 @@ export default function ContactSection() {
                 </div>
               </a>
 
-              <div className="flex flex-col gap-4 sm:flex-row sm:gap-3">
+              {/* UPDATED: Grid layout to accommodate 3 numbers */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <a
                   href="tel:+19713711444"
-                  className="flex-1 flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
+                  className="flex flex-col gap-2 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
                 >
-                  <div className="bg-[#DD844B] text-white p-3 rounded-xl shrink-0 transition-transform group-hover:scale-105">
-                    <Phone size={18} />
+                  <div className="bg-[#DD844B] text-white p-2.5 rounded-xl w-max transition-transform group-hover:scale-105">
+                    <Phone size={16} />
                   </div>
-                  <div className="text-sm">
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#DD844B]">
-                      Primary Line
+                  <div className="text-xs">
+                    <p className="font-bold uppercase tracking-wider text-[#DD844B]">
+                      Primary
                     </p>
-                    <p className="text-stone-100 mt-0.5 font-medium whitespace-nowrap">
+                    <p className="text-stone-100 mt-1 font-medium whitespace-nowrap text-[11px]">
                       +1 (971) 371-1444
                     </p>
                   </div>
@@ -205,17 +206,34 @@ export default function ContactSection() {
 
                 <a
                   href="tel:+15034438325"
-                  className="flex-1 flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
+                  className="flex flex-col gap-2 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
                 >
-                  <div className="bg-[#DD844B] text-white p-3 rounded-xl shrink-0 transition-transform group-hover:scale-105">
-                    <Phone size={18} />
+                  <div className="bg-[#DD844B] text-white p-2.5 rounded-xl w-max transition-transform group-hover:scale-105">
+                    <Phone size={16} />
                   </div>
-                  <div className="text-sm">
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#DD844B]">
-                      Secondary Line
+                  <div className="text-xs">
+                    <p className="font-bold uppercase tracking-wider text-[#DD844B]">
+                      Secondary
                     </p>
-                    <p className="text-stone-100 mt-0.5 font-medium whitespace-nowrap">
+                    <p className="text-stone-100 mt-1 font-medium whitespace-nowrap text-[11px]">
                       +1 (503) 443-8325
+                    </p>
+                  </div>
+                </a>
+
+                <a
+                  href="tel:+14694874894"
+                  className="flex flex-col gap-2 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
+                >
+                  <div className="bg-[#DD844B] text-white p-2.5 rounded-xl w-max transition-transform group-hover:scale-105">
+                    <Phone size={16} />
+                  </div>
+                  <div className="text-xs">
+                    <p className="font-bold uppercase tracking-wider text-[#DD844B]">
+                      Support
+                    </p>
+                    <p className="text-stone-100 mt-1 font-medium whitespace-nowrap text-[11px]">
+                      +1 (469) 487-4894
                     </p>
                   </div>
                 </a>
