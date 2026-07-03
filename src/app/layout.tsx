@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "Kompassionate Care",
   description:
     "Compassionate Adult Foster Care in Oregon. Personalized care with dignity, comfort, and professional support.",
+  icons: {
+    icon: "/favicon.ico", // This looks for the file in your /public folder
+  },
 };
 
 export default function RootLayout({
