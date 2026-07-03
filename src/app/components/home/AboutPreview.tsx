@@ -64,7 +64,7 @@ export default function AboutPreview() {
             {/* Core Image Mask Container */}
             <div className="w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100 relative bg-stone-100">
               <img
-                src="/images/about.jpeg"
+                src="/images/about.png"
                 alt="Kompassionate Care Community Lifestyle"
                 className="w-full h-full object-cover object-center transform hover:scale-[1.03] transition-transform duration-700"
                 loading="lazy"
