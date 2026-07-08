@@ -111,7 +111,7 @@ export default function Footer() {
           <div className="col-span-1 lg:col-span-1">
             <Link href="/" className="inline-block mb-6">
               <img
-                src="/images/logo2.png"
+                src="/images/logo2.svg"
                 alt="Kompassionate Care"
                 width={220}
                 height={80}

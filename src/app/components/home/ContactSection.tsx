@@ -167,7 +167,7 @@ export default function ContactSection() {
 
             <motion.div variants={ELEMENT_FADE} className="mt-10 space-y-4">
               <a
-                href="https://maps.google.com/?q=5510+SE+Drake+Rd,+Hillsboro,+OR+97124"
+                href="https://maps.google.com/?q=5510+SE+Drake+Rd,+Hillsboro,+OR+97129"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
@@ -180,7 +180,7 @@ export default function ContactSection() {
                     Location
                   </p>
                   <p className="text-stone-100 mt-0.5 font-medium">
-                    5510 SE Drake Rd, Hillsboro, OR 97124
+                    5510 SE Drake Rd, Hillsboro, OR 97129
                   </p>
                 </div>
               </a>

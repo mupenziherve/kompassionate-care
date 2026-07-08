@@ -34,7 +34,6 @@ export default function AboutPreview() {
         } as React.CSSProperties
       }
     >
-      {/* Subtle organic background pattern */}
       <div
         className="absolute inset-0 bg-[radial-gradient(#035346_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.02] pointer-events-none select-none"
         style={{ contain: "strict" }}
@@ -43,7 +42,7 @@ export default function AboutPreview() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-12 gap-16 xl:gap-24 items-center">
-          {/* Left Column: Multi-Framed Image Block with Animations */}
+          {/* Left Column: Image Block */}
           <motion.div
             variants={IMAGE_FADE_UP_PIPELINE}
             initial="hidden"
@@ -51,7 +50,6 @@ export default function AboutPreview() {
             viewport={{ once: true, margin: "-80px" }}
             className="lg:col-span-6 relative w-full aspect-[4/5] sm:h-[520px] lg:h-[580px] [will-change:transform]"
           >
-            {/* Decorative Luxury Accents */}
             <div
               className="absolute inset-4 -rotate-2 rounded-[2.5rem] bg-[#035346]/5 -z-10 select-none pointer-events-none"
               aria-hidden="true"
@@ -61,19 +59,14 @@ export default function AboutPreview() {
               aria-hidden="true"
             />
 
-            {/* Core Image Mask Container */}
             <div className="w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100 relative bg-stone-100">
+              {/* Remember to swap the image source below */}
               <img
                 src="/images/about.png"
                 alt="Kompassionate Care Community Lifestyle"
                 className="w-full h-full object-cover object-center transform hover:scale-[1.03] transition-transform duration-700"
                 loading="lazy"
                 decoding="async"
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src =
-                    "https://images.unsplash.com/photo-1516627145497-ae6968895b74";
-                }}
               />
               <div
                 className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none select-none"
@@ -81,7 +74,6 @@ export default function AboutPreview() {
               />
             </div>
 
-            {/* Floating Dynamic Licensure Module */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -116,27 +108,28 @@ export default function AboutPreview() {
             viewport={{ once: true, margin: "-80px" }}
             className="lg:col-span-6 flex flex-col items-start [will-change:transform]"
           >
-            <span className="text-[#DD844B] uppercase font-bold tracking-[3px] text-xs">
+            <span className="text-[#DD844B] uppercase font-bold tracking-[3px] text-xs px-3 py-1.5 bg-[#035346]/5 rounded-md border border-[#035346]/10">
               Our Foundations
             </span>
 
-            <h2 className="mt-4 text-4xl sm:text-5xl font-serif text-[#035346] leading-[1.15] font-normal tracking-wide">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-serif text-[#035346] leading-[1.2] font-normal tracking-wide">
               A Home Built on Compassion, Dignity, and Trust
             </h2>
 
-            <p className="mt-6 text-gray-600 text-base sm:text-lg leading-relaxed font-normal">
-              Kompassionate Care is a pristine, premium Registered Nurse and
-              caregiver-operated Adult Foster Home located in Oregon. We
-              specialize in tailoring personalized residential support within a
-              heavily secured, warm, and family-centered care ecosystem.
+            <p className="mt-6 text-stone-600 text-sm sm:text-base leading-relaxed font-light">
+              Kompassionate Care is a nurse and caregiver level 3 operated Adult
+              Foster Home located in Hillsboro, Oregon. We provide personalized,
+              resident-centered care in a safe, comfortable, and homelike
+              environment where every individual is treated with compassion,
+              dignity, and respect.
             </p>
 
-            <p className="mt-4 text-gray-500 text-sm sm:text-base leading-relaxed font-normal">
-              We fundamentally understand that selecting the right environment
-              for your loved one is a deeply emotional milestone. Our
-              operational core is built specifically to maximize daily
-              independence while preserving absolute safety and clinical peace
-              of mind.
+            <p className="mt-4 text-stone-600 text-sm sm:text-base leading-relaxed font-light">
+              We understand that choosing the right home for a loved one is an
+              important decision. Our goal is to promote comfort, independence,
+              and quality of life while giving families peace of mind through
+              attentive care, meaningful relationships, and a commitment to
+              excellence.
             </p>
 
             {/* Core Pillars Feature Mini-Grid */}
@@ -156,7 +149,7 @@ export default function AboutPreview() {
                   <h4 className="text-sm font-bold text-[#035346] tracking-wide">
                     Homelike Comfort
                   </h4>
-                  <p className="text-xs text-gray-500 mt-1 leading-relaxed font-normal">
+                  <p className="text-xs text-stone-600 mt-1 leading-relaxed font-light">
                     Preserving the warmth, rhythm, and familiar safety of true
                     home living.
                   </p>
@@ -178,7 +171,7 @@ export default function AboutPreview() {
                   <h4 className="text-sm font-bold text-[#035346] tracking-wide">
                     Clinical Peace of Mind
                   </h4>
-                  <p className="text-xs text-gray-500 mt-1 leading-relaxed font-normal">
+                  <p className="text-xs text-stone-600 mt-1 leading-relaxed font-light">
                     Continuous RN oversight and meticulously managed medication
                     protocols.
                   </p>
@@ -191,7 +184,6 @@ export default function AboutPreview() {
               <Link
                 href="/about"
                 className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-[#035346] hover:bg-[#023b32] text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-md shadow-[#035346]/10 group outline-none focus-visible:ring-2 focus-visible:ring-[#035346] focus-visible:ring-offset-4"
-                aria-label="Learn more about our organizational history and story"
               >
                 <span>Learn More About Our Story</span>
                 <ArrowRight
