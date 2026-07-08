@@ -971,7 +971,7 @@ export default function ContactPage() {
                   className="h-[310px] rounded-[2.5rem] overflow-hidden border border-stone-200 shadow-lg relative bg-stone-100"
                 >
                   <iframe
-                    src="https://maps.google.com/maps?q=5510%20SE%20Drake%20Rd,%20Hillsboro,%20OR%2097124&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    src="https://maps.google.com/maps?q=5510%20SE%20Drake%20Rd,%20Hillsboro,%20OR%2097129&t=&z=15&ie=UTF8&iwloc=&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
