@@ -2,10 +2,11 @@
 
 import React from "react";
 import Link from "next/link";
-import { MapPin, Phone, Mail, ArrowUpRight, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { MapPin, Phone, Mail, ChevronRight, Heart } from "lucide-react";
 
 // Social Media Icons
-const Facebook = ({ size = 20, ...props }: any) => (
+const Facebook = ({ size = 18, ...props }: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -22,7 +23,7 @@ const Facebook = ({ size = 20, ...props }: any) => (
   </svg>
 );
 
-const Instagram = ({ size = 20, ...props }: any) => (
+const Instagram = ({ size = 18, ...props }: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -41,7 +42,7 @@ const Instagram = ({ size = 20, ...props }: any) => (
   </svg>
 );
 
-const Linkedin = ({ size = 20, ...props }: any) => (
+const Linkedin = ({ size = 18, ...props }: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -60,7 +61,7 @@ const Linkedin = ({ size = 20, ...props }: any) => (
   </svg>
 );
 
-const Youtube = ({ size = 20, ...props }: any) => (
+const Youtube = ({ size = 18, ...props }: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -103,33 +104,43 @@ const SOCIAL_PROFILES = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#035346] text-white pt-20 pb-10">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-20">
-          {/* Brand Column */}
-          <div className="col-span-1 lg:col-span-1">
-            <Link href="/" className="inline-block mb-6">
-              <img
+    <footer className="bg-[#035346] text-white pt-24 pb-12 relative overflow-hidden border-t border-emerald-900/40">
+      {/* Background Decorative Accent */}
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* Main Footer Grid Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10 mb-20">
+          {/* Brand Presentation Column */}
+          <div className="flex flex-col gap-6">
+            <Link
+              href="/"
+              className="inline-block transition-transform duration-300 hover:scale-[1.02] w-fit"
+            >
+              <Image
                 src="/images/logo2.svg"
                 alt="Kompassionate Care"
                 width={220}
                 height={80}
-                className="w-[220px] h-auto object-contain"
+                priority
+                className="w-[250px] h-auto object-contain"
               />
             </Link>
-            <p className="text-stone-300 text-sm leading-relaxed mb-8">
+            <p className="text-emerald-100/70 text-sm leading-relaxed max-w-xs">
               Providing compassionate, elite professional oversight alongside a
               warm, family-centered ecosystem.
             </p>
-            <div className="flex gap-4">
+
+            {/* Social profiles with solid color background and hover inversion */}
+            <div className="flex gap-3 pt-2">
               {SOCIAL_PROFILES.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#DD844B] hover:bg-[#DD844B] hover:text-white transition-all duration-300"
+                  aria-label={social.label}
+                  className="w-10 h-10 rounded-full bg-[#DD844B] flex items-center justify-center text-white hover:bg-white hover:text-[#DD844B] hover:-translate-y-1 transition-all duration-300 shadow-md"
                 >
                   {social.icon}
                 </a>
@@ -137,21 +148,27 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Navigation Column */}
+          {/* Quick Navigation Links */}
           <div>
-            <h4 className="font-serif text-lg text-white mb-6 tracking-wide">
+            <h4 className="text-sm font-bold uppercase tracking-widest text-[#DD844B] mb-7">
               Quick Links
             </h4>
-            <ul className="space-y-4">
+            <ul className="space-y-3.5">
               {["Home", "About", "Services", "Gallery", "Contact"].map(
                 (item) => (
                   <li key={item}>
                     <Link
                       href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                      className="text-stone-300 hover:text-[#DD844B] flex items-center gap-2 transition-colors"
+                      className="group text-emerald-100/70 hover:text-white text-sm flex items-center gap-1.5 transition-colors duration-200"
                     >
-                      <ChevronRight size={14} />
-                      {item}
+                      <ChevronRight
+                        size={14}
+                        className="text-[#DD844B]/60 group-hover:text-[#DD844B] transition-transform duration-200 group-hover:translate-x-0.5"
+                      />
+                      <span className="relative py-0.5">
+                        {item}
+                        <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#DD844B] transition-all duration-300 group-hover:w-full" />
+                      </span>
                     </Link>
                   </li>
                 ),
@@ -159,12 +176,12 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services Column */}
+          {/* Core Disciplines List */}
           <div>
-            <h4 className="font-serif text-lg text-white mb-6 tracking-wide">
+            <h4 className="text-sm font-bold uppercase tracking-widest text-[#DD844B] mb-7">
               Care Disciplines
             </h4>
-            <ul className="space-y-4">
+            <ul className="space-y-3.5">
               {[
                 "24-Hour Care",
                 "Memory Care",
@@ -172,58 +189,90 @@ export default function Footer() {
                 "Behavioral Health",
                 "Physical Therapy",
               ].map((service) => (
-                <li key={service} className="text-stone-300 text-sm">
+                <li
+                  key={service}
+                  className="text-emerald-100/70 text-sm flex items-center gap-2"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/40 shrink-0" />
                   {service}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact Column */}
+          {/* Modern Structured Contact Information */}
           <div>
-            <h4 className="font-serif text-lg text-white mb-6 tracking-wide">
+            <h4 className="text-sm font-bold uppercase tracking-widest text-[#DD844B] mb-7">
               Contact Us
             </h4>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3 text-stone-300">
-                <MapPin size={20} className="text-[#DD844B] shrink-0" />
-                <span className="text-sm">
-                  5110 SE Drake Rd, Hillsboro OR,97129
+            <div className="space-y-5">
+              {/* Address Block */}
+              <div className="flex items-start gap-3.5 text-emerald-100/70">
+                <div className="p-2 rounded-xl bg-white/5 border border-white/5 text-[#DD844B] shrink-0 mt-0.5">
+                  <MapPin size={16} />
+                </div>
+                <span className="text-sm leading-relaxed">
+                  5110 SE Drake Rd,
+                  <br />
+                  Hillsboro OR, 97129
                 </span>
               </div>
-              <a
-                href="tel:9713711444"
-                className="flex items-center gap-3 text-stone-300 hover:text-[#DD844B] transition-colors"
-              >
-                <Phone size={20} className="text-[#DD844B] shrink-0" />
 
-                <span className="text-sm leading-relaxed font-medium">
-                  +1 (971) 371-1444
-                  <br />
-                  +1 (469) 487-4894
-                </span>
-              </a>
-              <a
-                href="mailto:info@kompassionatecare.com"
-                className="flex items-center gap-3 text-stone-300 hover:text-[#DD844B] transition-colors"
-              >
-                <Mail size={20} className="text-[#DD844B] shrink-0" />
-                <span className="text-sm">kompassionatecarellc@gmail.com</span>
-              </a>
+              {/* Organized Phone Numbers List */}
+              <div className="flex items-start gap-3.5 text-emerald-100/70">
+                <div className="p-2 rounded-xl bg-white/5 border border-white/5 text-[#DD844B] shrink-0 mt-0.5">
+                  <Phone size={16} />
+                </div>
+                <div className="flex flex-col gap-2 text-sm font-medium">
+                  <a
+                    href="tel:+15034438325"
+                    className="hover:text-white transition-colors flex items-center gap-1 group"
+                  >
+                    <span>+1 (503) 443-8325</span>
+                    <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded uppercase font-bold tracking-wider opacity-80 group-hover:opacity-100 transition-opacity">
+                      Main
+                    </span>
+                  </a>
+                  <a
+                    href="tel:+19713711444"
+                    className="hover:text-white transition-colors"
+                  >
+                    +1 (971) 371-1444
+                  </a>
+                  <a
+                    href="tel:+14694874894"
+                    className="hover:text-white transition-colors"
+                  >
+                    +1 (469) 487-4894
+                  </a>
+                </div>
+              </div>
+
+              {/* Email Address Block */}
+              <div className="flex items-start gap-3.5 text-emerald-100/70">
+                <div className="p-2 rounded-xl bg-white/5 border border-white/5 text-[#DD844B] shrink-0 mt-0.5">
+                  <Mail size={16} />
+                </div>
+                <a
+                  href="mailto:info@kompassionatecare.com"
+                  className="text-sm hover:text-white transition-colors break-all py-1.5"
+                >
+                  kompassionatecarellc@gmail.com
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Footer Bottom */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-stone-400 text-xs">
+        {/* Footer Bottom Section */}
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+          <p className="text-emerald-100/40 text-xs tracking-wide">
             &copy; {new Date().getFullYear()} Kompassionate Care. All Rights
             Reserved.
           </p>
-          <div className="flex gap-6">
-            <span className="text-stone-400 text-xs">
-              Professional Nursing Care
-            </span>
+          <div className="flex items-center gap-1.5 text-emerald-100/40 text-xs tracking-wide">
+            <span>Professional Elite Nursing Care</span>
+            <Heart size={10} className="text-[#DD844B] fill-[#DD844B]" />
           </div>
         </div>
       </div>

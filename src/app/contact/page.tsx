@@ -861,14 +861,16 @@ export default function ContactPage() {
                             <Phone size={18} />
                           </div>
                           <div>
-                            <p className="text-xs font-bold uppercase tracking-wider text-[#DD844B]">
-                              Click to Call Primary
+                            <p className="text-xs font-bold uppercase tracking-wider text-[#DD844B] mb-1">
+                              Click to Call
                             </p>
-                            <p className="text-stone-800 mt-0.5 font-semibold text-sm">
+                            <p className="text-stone-800 font-semibold text-sm flex items-center gap-2">
+                              <span>+1 (503) 443-8325</span>
+                            </p>
+                            <p className="text-stone-800 mt-1 font-semibold text-sm">
                               +1 (971) 371-1444
                             </p>
-                            <br />
-                            <p className="text-stone-800 mt-0.5 font-semibold text-sm">
+                            <p className="text-stone-800 mt-1 font-semibold text-sm">
                               +1 (469) 487-4894
                             </p>
                           </div>
@@ -971,14 +973,14 @@ export default function ContactPage() {
                   className="h-[310px] rounded-[2.5rem] overflow-hidden border border-stone-200 shadow-lg relative bg-stone-100"
                 >
                   <iframe
-                    src="https://maps.google.com/maps?q=5510%20SE%20Drake%20Rd,%20Hillsboro,%20OR%2097129&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    src="https://maps.google.com/maps?q=5110%20SE%20Drake%20Rd%20Hillsboro%20OR%2097123&t=&z=16&ie=UTF8&iwloc=&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Kompassionate Care Hillsboro Base Map"
+                    title="Kompassionate Care Location Map"
                   />
                 </motion.div>
               </div>
