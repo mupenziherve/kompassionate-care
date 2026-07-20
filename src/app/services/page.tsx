@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import {
   Utensils,
@@ -12,24 +14,23 @@ import {
   MessageSquare,
   Phone,
 } from "lucide-react";
-import Link from "next/link";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 
 const services = [
   {
     icon: Utensils,
-    title: "Home-Cooked Meals",
+    title: "Nutrition & Dining",
     category: "Nutrition",
     description:
-      "Nutritious, delicious meals prepared fresh daily in our home kitchen. We accommodate dietary needs and preferences.",
+      "We provide nutritious home-cooked meals through a balanced rotating menu, 24/7 healthy snacks, hydration support, and specialized diets tailored to individual health needs. Our family-style dining environment promotes comfort, dignity, social connection, and personalized nutritional support through ongoing monitoring and collaboration with healthcare providers.",
   },
   {
     icon: Pill,
     title: "Medication Management",
     category: "Clinical Care",
     description:
-      "Our trained caregivers ensure medications are taken correctly and on schedule. We coordinate with providers safely.",
+      "As an RN-operated Adult Foster Home, we provide safe and coordinated medication management, ensuring accurate administration, dosing, and timing. We collaborate with healthcare providers and pharmacies, monitor effectiveness and side effects, and maintain secure documentation to support wellness and reduce medication errors.",
   },
   {
     icon: Sparkles,
@@ -50,7 +51,7 @@ const services = [
     title: "Housekeeping & Laundry",
     category: "Environment",
     description:
-      "A clean, comfortable home is essential. We handle all housekeeping and laundry so residents can simply relax.",
+      "We provide a safe, clean, and comfortable home with clutter-free living spaces, rigorous sanitation and laundry services, secure storage of medications and hazardous materials, and built-in safety features. Our welcoming, accessible environment supports mobility, independence, emotional well-being, and peace of mind for residents and families.",
   },
   {
     icon: Users,
@@ -88,10 +89,12 @@ export default function ServicesPage() {
         {/* Hero Section */}
         <section className="relative h-[460px] sm:h-[520px] w-full overflow-hidden bg-stone-900">
           <div className="absolute inset-0 z-0">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=2000&q=80"
               alt="Compassionate Care"
-              className="w-full h-full object-cover object-center opacity-40 mix-blend-luminosity scale-105"
+              fill
+              priority
+              className="object-cover object-center opacity-40 mix-blend-luminosity scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#023b32]/95 via-[#035346]/75 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#FAF8F4] via-transparent to-transparent opacity-100" />
@@ -139,26 +142,28 @@ export default function ServicesPage() {
                     key={idx}
                     variants={itemVariants}
                     whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                    className="group bg-white rounded-[2rem] p-8 border border-stone-200/40 shadow-sm hover:shadow-xl transition-all duration-300"
+                    className="group bg-white rounded-[2rem] p-8 border border-stone-200/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
                   >
-                    <motion.div
-                      whileHover={{ rotate: 10, scale: 1.1 }}
-                      className="w-12 h-12 rounded-xl bg-[#035346]/5 text-[#035346] flex items-center justify-center mb-6 transition-colors group-hover:bg-[#DD844B] group-hover:text-white"
-                    >
-                      <Icon size={22} strokeWidth={1.5} />
-                    </motion.div>
+                    <div>
+                      <motion.div
+                        whileHover={{ rotate: 10, scale: 1.1 }}
+                        className="w-12 h-12 rounded-xl bg-[#035346]/5 text-[#035346] flex items-center justify-center mb-6 transition-colors group-hover:bg-[#DD844B] group-hover:text-white"
+                      >
+                        <Icon size={22} strokeWidth={1.5} />
+                      </motion.div>
 
-                    <span className="text-[#DD844B] text-[10px] font-bold tracking-[2px] uppercase block mb-2">
-                      {service.category}
-                    </span>
+                      <span className="text-[#DD844B] text-xs font-bold tracking-[2px] uppercase block mb-2">
+                        {service.category}
+                      </span>
 
-                    <h2 className="text-lg font-serif font-normal text-[#035346] mb-3 tracking-wide">
-                      {service.title}
-                    </h2>
+                      <h2 className="text-xl font-serif font-normal text-[#035346] mb-3 tracking-wide">
+                        {service.title}
+                      </h2>
 
-                    <p className="text-sm text-stone-600 leading-relaxed font-light">
-                      {service.description}
-                    </p>
+                      <p className="text-sm text-stone-600 leading-relaxed font-normal">
+                        {service.description}
+                      </p>
+                    </div>
                   </motion.div>
                 );
               })}
@@ -169,23 +174,23 @@ export default function ServicesPage() {
         {/* CTA Section */}
         <section className="py-20 border-t border-stone-200/50">
           <div className="max-w-3xl mx-auto px-6 text-center">
-            <h3 className="font-serif text-2xl text-[#035346] mb-4">
+            <h3 className="font-serif text-2xl sm:text-3xl text-[#035346] mb-4">
               Seeking Personal Clarity on Room Openings?
             </h3>
-            <p className="text-sm text-stone-600 mb-8 font-light max-w-lg mx-auto">
+            <p className="text-sm sm:text-base text-stone-600 mb-8 font-normal max-w-lg mx-auto leading-relaxed">
               Our administration coordinates scheduling and intake planning
               directly with family leads.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/contact"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#035346] hover:bg-[#023b32] text-white font-semibold px-8 py-4 rounded-xl text-xs uppercase tracking-wider transition-all"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#035346] hover:bg-[#023b32] text-white font-semibold px-8 py-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md"
               >
                 <MessageSquare size={16} />
                 <span>Message Us</span>
               </Link>
               <a
-                href="tel:+19713711444"
+                href="tel:+15034438325"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-stone-100 hover:bg-stone-200 text-[#035346] font-bold px-8 py-4 rounded-xl text-xs uppercase tracking-wider transition-all"
               >
                 <Phone size={16} />
