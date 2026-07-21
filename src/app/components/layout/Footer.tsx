@@ -102,6 +102,15 @@ const SOCIAL_PROFILES = [
   },
 ];
 
+const CARE_DISCIPLINES = [
+  { name: "24-Hour Care", href: "/services#service-24hr" },
+  { name: "Memory Care", href: "/services#service-memory" },
+  { name: "Behavioral Health", href: "/services#service-behavioral" },
+  { name: "Hospice Support", href: "/services#service-hospice" },
+  { name: "Physical Therapy", href: "/services#service-therapy" },
+  { name: "Developmental Disabilities", href: "/services#service-dd" },
+];
+
 export default function Footer() {
   return (
     <footer className="bg-[#035346] text-white pt-24 pb-12 relative overflow-hidden border-t border-emerald-900/40">
@@ -131,7 +140,7 @@ export default function Footer() {
               warm, family-centered ecosystem.
             </p>
 
-            {/* Social profiles with solid color background and hover inversion */}
+            {/* Social profiles */}
             <div className="flex gap-3 pt-2">
               {SOCIAL_PROFILES.map((social) => (
                 <a
@@ -176,31 +185,30 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Core Disciplines List */}
+          {/* Core Disciplines List (Now Clickable Links) */}
           <div>
             <h4 className="text-sm font-bold uppercase tracking-widest text-[#DD844B] mb-7">
               Care Disciplines
             </h4>
             <ul className="space-y-3.5">
-              {[
-                "24-Hour Care",
-                "Memory Care",
-                "Hospice Support",
-                "Behavioral Health",
-                "Physical Therapy",
-              ].map((service) => (
-                <li
-                  key={service}
-                  className="text-emerald-100/70 text-sm flex items-center gap-2"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/40 shrink-0" />
-                  {service}
+              {CARE_DISCIPLINES.map((discipline) => (
+                <li key={discipline.name}>
+                  <Link
+                    href={discipline.href}
+                    className="group text-emerald-100/70 hover:text-white text-sm flex items-center gap-2 transition-colors duration-200"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#DD844B]/60 group-hover:bg-[#DD844B] transition-colors shrink-0" />
+                    <span className="relative py-0.5">
+                      {discipline.name}
+                      <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#DD844B] transition-all duration-300 group-hover:w-full" />
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Modern Structured Contact Information */}
+          {/* Structured Contact Information */}
           <div>
             <h4 className="text-sm font-bold uppercase tracking-widest text-[#DD844B] mb-7">
               Contact Us
@@ -214,7 +222,7 @@ export default function Footer() {
                 <span className="text-sm leading-relaxed">
                   5110 SE Drake Rd,
                   <br />
-                  Hillsboro OR, 97129
+                  Hillsboro OR, 97123
                 </span>
               </div>
 
@@ -226,7 +234,7 @@ export default function Footer() {
                 <div className="flex flex-col gap-2 text-sm font-medium">
                   <a
                     href="tel:+15034438325"
-                    className="hover:text-white transition-colors flex items-center gap-1 group"
+                    className="hover:text-white transition-colors flex items-center gap-1.5 group"
                   >
                     <span>+1 (503) 443-8325</span>
                     <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded uppercase font-bold tracking-wider opacity-80 group-hover:opacity-100 transition-opacity">
@@ -254,7 +262,7 @@ export default function Footer() {
                   <Mail size={16} />
                 </div>
                 <a
-                  href="mailto:info@kompassionatecare.com"
+                  href="mailto:kompassionatecarellc@gmail.com"
                   className="text-sm hover:text-white transition-colors break-all py-1.5"
                 >
                   kompassionatecarellc@gmail.com
@@ -267,7 +275,7 @@ export default function Footer() {
         {/* Footer Bottom Section */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
           <p className="text-emerald-100/40 text-xs tracking-wide">
-            &copy; {new Date().getFullYear()} Kompassionate Care. All Rights
+            &copy; {new Date().getFullYear()} Kompassionate Care LLC. All Rights
             Reserved.
           </p>
           <div className="flex items-center gap-1.5 text-emerald-100/40 text-xs tracking-wide">
