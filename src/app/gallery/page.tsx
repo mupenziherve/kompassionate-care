@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Maximize2,
   X,
-  ChevronRight,
-  Images,
   TreePine,
   Bed,
   DoorOpen,
@@ -43,6 +41,12 @@ interface GalleryItem {
 export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Prevent SSR/Client Hydration Mismatches
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const galleryItems = useMemo<GalleryItem[]>(
     () => [
@@ -177,42 +181,31 @@ export default function GalleryPage() {
   );
 
   const filteredItems = useMemo(() => {
-    // 1. Logic for individual categories (Keep order consistent)
-    if (activeCategory !== "all") {
-      return galleryItems
-        .filter((item) => item.category === activeCategory)
-        .map((item) => ({
-          ...item,
-          displayTitle: item.category
-            .split("-")
-            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-            .join(" "),
-        }));
-    }
+    const list =
+      activeCategory === "all"
+        ? galleryItems
+        : galleryItems.filter((item) => item.category === activeCategory);
 
-    // 2. Logic for "all" (Stable Randomized Shuffle)
-    return [...galleryItems]
-      .map((value) => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => ({
-        ...value,
-        displayTitle: value.category
-          .split("-")
-          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-          .join(" "),
-      }));
+    return list.map((item) => ({
+      ...item,
+      displayTitle: item.category
+        .split("-")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" "),
+    }));
   }, [activeCategory, galleryItems]);
 
   return (
     <>
       <Navbar />
       <main className="bg-[#FAF8F4] min-h-screen">
+        {/* HERO SECTION */}
         <section className="relative h-[460px] w-full overflow-hidden bg-stone-900">
           <div className="absolute inset-0 z-0">
             <img
               src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=2000&q=80"
               className="w-full h-full object-cover opacity-40"
-              alt=""
+              alt="Gallery Banner"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#023b32]/95 via-[#035346]/75 to-transparent" />
           </div>
@@ -226,21 +219,23 @@ export default function GalleryPage() {
               <span className="text-[#DD844B] text-xs font-bold tracking-[4px] uppercase">
                 Visual Sanctuary
               </span>
-              <h1 className="mt-3 text-5xl font-serif text-white">
+              <h1 className="mt-3 text-4xl sm:text-5xl font-serif text-white">
                 Experience Our Beautiful Home
               </h1>
-              <p className="mt-4 text-stone-200">
+              <p className="mt-4 text-stone-200 text-sm sm:text-base font-light">
                 Take a virtual walkthrough of our facility.
               </p>
             </motion.div>
           </div>
         </section>
 
+        {/* GALLERY GRID SECTION */}
         <section className="pb-24 -mt-12 relative z-20">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="bg-white rounded-[2.5rem] p-12 shadow-xl border border-stone-200/40">
+            <div className="bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl border border-stone-200/40">
+              {/* Category Filter Navigation */}
               <div className="mb-10">
-                <div className="flex flex-wrap gap-2 justify-center lg:justify-start bg-stone-100 p-2 rounded-2xl max-w-max">
+                <div className="flex flex-wrap gap-2 justify-center lg:justify-start bg-stone-100 p-2 rounded-2xl">
                   {[
                     { id: "all", label: "View All", icon: Grid },
                     { id: "front-porch", label: "Front Porch", icon: DoorOpen },
@@ -254,58 +249,112 @@ export default function GalleryPage() {
                     { id: "corridor", label: "Corridor", icon: ArrowRight },
                     { id: "stairs", label: "Stairs", icon: MoveUpRight },
                     { id: "balcony", label: "Balcony", icon: Compass },
-                  ].map((btn) => (
-                    <button
-                      key={btn.id}
-                      onClick={() => setActiveCategory(btn.id)}
-                      className={`py-3 px-5 text-xs font-bold uppercase rounded-xl flex items-center gap-2 transition-all ${activeCategory === btn.id ? "bg-[#035346] text-white shadow-md" : "text-stone-500 hover:bg-stone-200"}`}
-                    >
-                      <btn.icon size={14} /> {btn.label}
-                    </button>
-                  ))}
+                  ].map((btn) => {
+                    const IconComponent = btn.icon;
+                    return (
+                      <button
+                        key={btn.id}
+                        onClick={() => setActiveCategory(btn.id)}
+                        className={`py-3 px-5 text-xs font-bold uppercase rounded-xl flex items-center gap-2 transition-all ${
+                          activeCategory === btn.id
+                            ? "bg-[#035346] text-white shadow-md"
+                            : "text-stone-500 hover:bg-stone-200"
+                        }`}
+                      >
+                        <IconComponent size={14} /> {btn.label}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
-              <motion.div
-                layout
-                className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
-              >
-                <AnimatePresence mode="popLayout">
-                  {filteredItems.map((item) => (
-                    <motion.div
-                      layout
-                      key={item.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.4 }}
-                      className="group relative overflow-hidden bg-stone-50 rounded-[2rem] p-3 border border-stone-200/40"
-                    >
-                      <div className="relative h-64 w-full rounded-[1.5rem] overflow-hidden">
-                        <img
-                          src={item.imageUrl}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          alt={item.displayTitle}
-                        />
-                        <button
-                          onClick={() => setSelectedImage(item)}
-                          className="absolute top-4 right-4 bg-white/90 p-2.5 rounded-full opacity-0 group-hover:opacity-100 transition-all hover:bg-[#035346] hover:text-white"
-                        >
-                          <Maximize2 size={16} />
-                        </button>
-                      </div>
-                      <div className="p-4">
-                        <h3 className="font-serif text-[#035346]">
-                          {item.displayTitle}
-                        </h3>
-                      </div>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </motion.div>
+              {/* Grid Cards Container */}
+              {isMounted && (
+                <motion.div
+                  layout
+                  className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                  <AnimatePresence mode="popLayout">
+                    {filteredItems.map((item) => (
+                      <motion.div
+                        layout
+                        key={item.id}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.4 }}
+                        className="group relative overflow-hidden bg-stone-50 rounded-[2rem] p-3 border border-stone-200/40"
+                      >
+                        <div className="relative h-64 w-full rounded-[1.5rem] overflow-hidden">
+                          <img
+                            src={item.imageUrl}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            alt={item.displayTitle}
+                            loading="lazy"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setSelectedImage(item)}
+                            className="absolute top-4 right-4 bg-white/90 p-2.5 rounded-full opacity-0 group-hover:opacity-100 transition-all hover:bg-[#035346] hover:text-white shadow-md"
+                            aria-label="Expand Image"
+                          >
+                            <Maximize2 size={16} />
+                          </button>
+                        </div>
+                        <div className="p-4">
+                          <h3 className="font-serif text-[#035346] font-semibold">
+                            {item.displayTitle}
+                          </h3>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </motion.div>
+              )}
             </div>
           </div>
         </section>
+
+        {/* FULLSCREEN LIGHTBOX MODAL */}
+        <AnimatePresence>
+          {selectedImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8"
+              onClick={() => setSelectedImage(null)}
+            >
+              <div
+                className="relative max-w-5xl w-full max-h-[90vh] bg-[#035346] rounded-3xl overflow-hidden shadow-2xl flex flex-col border border-white/10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center justify-between p-6 bg-[#035346] text-white border-b border-white/10">
+                  <h3 className="font-serif text-xl">
+                    {selectedImage.category
+                      .split("-")
+                      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                      .join(" ")}
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedImage(null)}
+                    className="p-2 rounded-full hover:bg-white/10 text-white transition-colors"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+                <div className="relative flex-1 bg-black/50 flex items-center justify-center overflow-hidden p-4 min-h-[300px]">
+                  <img
+                    src={selectedImage.imageUrl}
+                    alt={selectedImage.id}
+                    className="max-h-[75vh] w-auto object-contain rounded-xl shadow-2xl"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
       <Footer />
     </>
