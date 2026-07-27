@@ -1,43 +1,16 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, Variants } from "framer-motion";
-import {
-  Clock,
-  Brain,
-  ShieldPlus,
-  HeartPulse,
-  Activity,
-  UserCheck,
-  Utensils,
-  Pill,
-  Sparkles,
-  Home,
-  Users,
-  ArrowRight,
-  Phone,
-  MessageSquare,
-  CheckCircle2,
-  Calendar,
-} from "lucide-react";
+import { Phone, Calendar } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import ServicesClient, { UnifiedService } from "./ServicesClient";
+import { getServices as getServicesFromContentful } from "@/lib/contentful";
 
-interface ServiceItem {
-  id: string;
-  category: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  highlights: string[];
-  icon: React.ElementType;
-  badge?: string;
-}
+export const revalidate = 3600; // Next.js ISR (revalidate hourly)
 
-// 1. Specialized Clinical & Medical Programs (Matches Footer & Contact Links)
-const SPECIALIZED_PROGRAMS: ServiceItem[] = [
+// STATIC FALLBACK DATA (Used if Contentful is unreachable or empty)
+const STATIC_CLINICAL_PROGRAMS: UnifiedService[] = [
   {
     id: "service-24hr",
     category: "24/7 Clinical Care",
@@ -50,8 +23,8 @@ const SPECIALIZED_PROGRAMS: ServiceItem[] = [
       "Nighttime Checks & Mobility Support",
       "Emergency Medical Response System",
     ],
-    icon: Clock,
-    badge: "Most Requested",
+    iconName: "Clock",
+    programType: "clinical",
   },
   {
     id: "service-memory",
@@ -65,7 +38,8 @@ const SPECIALIZED_PROGRAMS: ServiceItem[] = [
       "Symptom Management & Redirection",
       "Secure, Clutter-Free Sanctuary",
     ],
-    icon: Brain,
+    iconName: "Brain",
+    programType: "clinical",
   },
   {
     id: "service-behavioral",
@@ -79,7 +53,8 @@ const SPECIALIZED_PROGRAMS: ServiceItem[] = [
       "Positive Behavioral Interventions",
       "Close Collaboration with Therapists",
     ],
-    icon: ShieldPlus,
+    iconName: "ShieldPlus",
+    programType: "clinical",
   },
   {
     id: "service-hospice",
@@ -93,7 +68,8 @@ const SPECIALIZED_PROGRAMS: ServiceItem[] = [
       "Symptom & Pain Management",
       "Family Emotional Support & Privacy",
     ],
-    icon: HeartPulse,
+    iconName: "HeartPulse",
+    programType: "clinical",
   },
   {
     id: "service-therapy",
@@ -107,7 +83,8 @@ const SPECIALIZED_PROGRAMS: ServiceItem[] = [
       "Daily Mobility & Exercise Routines",
       "Fall Prevention & Safety Equipment",
     ],
-    icon: Activity,
+    iconName: "Activity",
+    programType: "clinical",
   },
   {
     id: "service-dd",
@@ -121,12 +98,12 @@ const SPECIALIZED_PROGRAMS: ServiceItem[] = [
       "Life Skill & Autonomy Development",
       "Social Integration & Activities",
     ],
-    icon: UserCheck,
+    iconName: "UserCheck",
+    programType: "clinical",
   },
 ];
 
-// 2. Foundational Daily Living Services
-const DAILY_LIVING_SERVICES: ServiceItem[] = [
+const STATIC_DAILY_SERVICES: UnifiedService[] = [
   {
     id: "service-nutrition",
     category: "Nutritional Health",
@@ -139,7 +116,8 @@ const DAILY_LIVING_SERVICES: ServiceItem[] = [
       "Specialized Diet Accommodations",
       "Family-Style Social Dining",
     ],
-    icon: Utensils,
+    iconName: "Utensils",
+    programType: "daily",
   },
   {
     id: "service-medication",
@@ -153,7 +131,8 @@ const DAILY_LIVING_SERVICES: ServiceItem[] = [
       "Pharmacy Integration & Delivery",
       "Secure Digital Logging & Records",
     ],
-    icon: Pill,
+    iconName: "Pill",
+    programType: "daily",
   },
   {
     id: "service-housekeeping",
@@ -167,7 +146,8 @@ const DAILY_LIVING_SERVICES: ServiceItem[] = [
       "Personalized Laundry & Linen Service",
       "Safe, Barrier-Free Environment",
     ],
-    icon: Home,
+    iconName: "Home",
+    programType: "daily",
   },
   {
     id: "service-personal-care",
@@ -181,7 +161,8 @@ const DAILY_LIVING_SERVICES: ServiceItem[] = [
       "Transfer & Incontinence Support",
       "Dignity-Preserving Caregiving",
     ],
-    icon: Sparkles,
+    iconName: "Sparkles",
+    programType: "daily",
   },
   {
     id: "service-companionship",
@@ -195,33 +176,25 @@ const DAILY_LIVING_SERVICES: ServiceItem[] = [
       "Arts, Crafts, Games & Music",
       "Outdoor Garden & Porch Relaxation",
     ],
-    icon: Users,
+    iconName: "Users",
+    programType: "daily",
   },
 ];
 
-// Animation Variants
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-  },
-};
+export default async function ServicesPage() {
+  // Try fetching dynamic entries from Contentful
+  const contentfulData = await getServicesFromContentful();
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 35, scale: 0.96 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-  },
-};
+  let clinicalPrograms: UnifiedService[] = STATIC_CLINICAL_PROGRAMS;
+  let dailyServices: UnifiedService[] = STATIC_DAILY_SERVICES;
 
-export default function ServicesPage() {
-  const [activeTab, setActiveTab] = useState<"all" | "clinical" | "daily">(
-    "all",
-  );
+  // If Contentful entries exist, split and use them instead of static arrays
+  if (contentfulData && contentfulData.length > 0) {
+    clinicalPrograms = contentfulData.filter(
+      (s) => s.programType === "clinical",
+    );
+    dailyServices = contentfulData.filter((s) => s.programType === "daily");
+  }
 
   return (
     <>
@@ -243,12 +216,7 @@ export default function ServicesPage() {
           </div>
 
           <div className="max-w-7xl mx-auto px-6 h-full relative z-10 flex items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-2xl bg-[#035346]/90 backdrop-blur-md rounded-[2.5rem] p-8 sm:p-12 border border-white/10 shadow-2xl relative overflow-hidden"
-            >
+            <div className="max-w-2xl bg-[#035346]/90 backdrop-blur-md rounded-[2.5rem] p-8 sm:p-12 border border-white/10 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 left-0 w-2.5 h-full bg-[#DD844B]" />
               <span className="text-[#DD844B] text-xs font-bold tracking-[4px] uppercase block mb-3">
                 Comprehensive Care Disciplines
@@ -264,231 +232,15 @@ export default function ServicesPage() {
                 nutrition and genuine companionship, our RN-operated home
                 supports every dimension of life.
               </p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* SERVICE FILTER & GRID CONTAINER */}
-        <section className="pb-24 lg:pb-32 -mt-12 relative z-20">
-          <div className="max-w-7xl mx-auto px-6">
-            {/* Filter Pill Navigation */}
-            <div className="bg-white rounded-[2rem] p-3 shadow-xl border border-stone-200/50 mb-12 flex flex-wrap items-center justify-center sm:justify-between gap-4 max-w-3xl mx-auto">
-              <span className="text-xs font-bold uppercase tracking-widest text-stone-400 pl-4 hidden sm:block">
-                Care Programs:
-              </span>
-              <div className="flex gap-2 w-full sm:w-auto">
-                {[
-                  { id: "all", label: "All Disciplines" },
-                  { id: "clinical", label: "Clinical & Specialized" },
-                  { id: "daily", label: "Daily Living & Wellness" },
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id as any)}
-                    className={`flex-1 sm:flex-initial py-3 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
-                      activeTab === tab.id
-                        ? "bg-[#035346] text-white shadow-md"
-                        : "text-stone-500 hover:text-stone-900 hover:bg-stone-100"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
             </div>
-
-            {/* SECTION 1: CLINICAL & SPECIALIZED PROGRAMS */}
-            {(activeTab === "all" || activeTab === "clinical") && (
-              <div className="mb-20">
-                <div className="mb-10 text-center sm:text-left">
-                  <span className="text-[#DD844B] text-xs font-bold tracking-[3px] uppercase block mb-1">
-                    RN-Supervised Healthcare
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-serif text-[#035346]">
-                    Specialized Medical & Clinical Care
-                  </h2>
-                  <p className="text-stone-600 text-sm sm:text-base mt-2 max-w-xl font-light">
-                    Directly linked to our admissions intake and customized care
-                    planning for complex health needs.
-                  </p>
-                </div>
-
-                <motion.div
-                  variants={containerVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-80px" }}
-                  className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-                >
-                  {SPECIALIZED_PROGRAMS.map((service) => {
-                    const IconComponent = service.icon;
-                    return (
-                      <motion.div
-                        key={service.id}
-                        id={service.id}
-                        variants={cardVariants}
-                        className="group relative bg-white rounded-[2.2rem] p-8 sm:p-10 border border-stone-200/80 hover:border-[#035346]/40 shadow-sm hover:shadow-2xl hover:shadow-[#035346]/10 transition-all duration-500 flex flex-col justify-between overflow-hidden hover:-translate-y-2"
-                      >
-                        {/* Hover Ambient Glow Accent */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#035346]/[0.03] via-transparent to-[#DD844B]/[0.05] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#035346] to-[#DD844B] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                        <div>
-                          {/* Header Line */}
-                          <div className="flex items-center justify-between mb-6">
-                            <div className="w-14 h-14 rounded-2xl bg-[#035346]/10 text-[#035346] group-hover:bg-[#DD844B] group-hover:text-white flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-sm">
-                              <IconComponent size={26} strokeWidth={1.75} />
-                            </div>
-                            {service.badge ? (
-                              <span className="text-[10px] font-bold uppercase tracking-wider bg-[#DD844B]/15 text-[#DD844B] px-3 py-1.5 rounded-full border border-[#DD844B]/20">
-                                {service.badge}
-                              </span>
-                            ) : (
-                              <span className="text-[11px] font-bold uppercase tracking-widest text-stone-400">
-                                {service.category}
-                              </span>
-                            )}
-                          </div>
-
-                          {/* Titles */}
-                          <h3 className="text-2xl font-serif text-[#035346] group-hover:text-[#023b32] transition-colors mb-1 font-medium">
-                            {service.title}
-                          </h3>
-                          <p className="text-xs font-bold uppercase tracking-wider text-[#DD844B] mb-4">
-                            {service.subtitle}
-                          </p>
-
-                          {/* Description */}
-                          <p className="text-stone-600 text-sm sm:text-base leading-relaxed font-normal mb-6">
-                            {service.description}
-                          </p>
-
-                          {/* Bullet Highlights */}
-                          <ul className="space-y-2.5 pt-4 border-t border-stone-100 mb-8">
-                            {service.highlights.map((h, i) => (
-                              <li
-                                key={i}
-                                className="flex items-center gap-2.5 text-xs sm:text-sm text-stone-700 font-medium"
-                              >
-                                <CheckCircle2
-                                  size={16}
-                                  className="text-[#035346] shrink-0"
-                                />
-                                <span>{h}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        {/* Card Footer Action */}
-                        <Link
-                          href={`/contact?type=tour&service=${service.id}`}
-                          className="inline-flex items-center justify-between w-full pt-4 border-t border-stone-100 text-xs font-bold uppercase tracking-wider text-[#035346] group-hover:text-[#DD844B] transition-colors"
-                        >
-                          <span>Inquire For Care</span>
-                          <ArrowRight
-                            size={16}
-                            className="group-hover:translate-x-1.5 transition-transform"
-                          />
-                        </Link>
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
-              </div>
-            )}
-
-            {/* SECTION 2: DAILY LIVING & RESIDENTIAL SUPPORT */}
-            {(activeTab === "all" || activeTab === "daily") && (
-              <div>
-                <div className="mb-10 text-center sm:text-left">
-                  <span className="text-[#DD844B] text-xs font-bold tracking-[3px] uppercase block mb-1">
-                    Warm Residential Environment
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-serif text-[#035346]">
-                    Daily Living & Residential Support
-                  </h2>
-                  <p className="text-stone-600 text-sm sm:text-base mt-2 max-w-xl font-light">
-                    Promoting everyday comfort, home-style dining, safety, and
-                    continuous engagement.
-                  </p>
-                </div>
-
-                <motion.div
-                  variants={containerVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-80px" }}
-                  className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-                >
-                  {DAILY_LIVING_SERVICES.map((service) => {
-                    const IconComponent = service.icon;
-                    return (
-                      <motion.div
-                        key={service.id}
-                        id={service.id}
-                        variants={cardVariants}
-                        className="group relative bg-white rounded-[2.2rem] p-8 sm:p-10 border border-stone-200/80 hover:border-[#035346]/40 shadow-sm hover:shadow-2xl hover:shadow-[#035346]/10 transition-all duration-500 flex flex-col justify-between overflow-hidden hover:-translate-y-2"
-                      >
-                        {/* Hover Ambient Glow Accent */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#035346]/[0.03] via-transparent to-[#DD844B]/[0.05] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#035346] to-[#DD844B] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                        <div>
-                          <div className="flex items-center justify-between mb-6">
-                            <div className="w-14 h-14 rounded-2xl bg-[#035346]/10 text-[#035346] group-hover:bg-[#DD844B] group-hover:text-white flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-sm">
-                              <IconComponent size={26} strokeWidth={1.75} />
-                            </div>
-                            <span className="text-[11px] font-bold uppercase tracking-widest text-stone-400">
-                              {service.category}
-                            </span>
-                          </div>
-
-                          <h3 className="text-2xl font-serif text-[#035346] group-hover:text-[#023b32] transition-colors mb-1 font-medium">
-                            {service.title}
-                          </h3>
-                          <p className="text-xs font-bold uppercase tracking-wider text-[#DD844B] mb-4">
-                            {service.subtitle}
-                          </p>
-
-                          <p className="text-stone-600 text-sm sm:text-base leading-relaxed font-normal mb-6">
-                            {service.description}
-                          </p>
-
-                          <ul className="space-y-2.5 pt-4 border-t border-stone-100 mb-8">
-                            {service.highlights.map((h, i) => (
-                              <li
-                                key={i}
-                                className="flex items-center gap-2.5 text-xs sm:text-sm text-stone-700 font-medium"
-                              >
-                                <CheckCircle2
-                                  size={16}
-                                  className="text-[#035346] shrink-0"
-                                />
-                                <span>{h}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <Link
-                          href="/contact?type=tour"
-                          className="inline-flex items-center justify-between w-full pt-4 border-t border-stone-100 text-xs font-bold uppercase tracking-wider text-[#035346] group-hover:text-[#DD844B] transition-colors"
-                        >
-                          <span>Schedule Walkthrough</span>
-                          <ArrowRight
-                            size={16}
-                            className="group-hover:translate-x-1.5 transition-transform"
-                          />
-                        </Link>
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
-              </div>
-            )}
           </div>
         </section>
+
+        {/* DYNAMIC OR FALLBACK SERVICES SECTION */}
+        <ServicesClient
+          clinicalPrograms={clinicalPrograms}
+          dailyServices={dailyServices}
+        />
 
         {/* CALL TO ACTION SECTION */}
         <section className="py-20 border-t border-stone-200/60 bg-white relative overflow-hidden">
