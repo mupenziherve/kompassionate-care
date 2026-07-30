@@ -40,7 +40,15 @@ export async function getServices() {
 
 export { getServices as getServicesFromContentful };
 
-export async function getGalleryItems() {
+export interface GalleryItem {
+  id: string;
+  title: string;
+  category: string;
+  imageUrl: string;
+  caption?: string;
+}
+
+export async function getGalleryItems(): Promise<GalleryItem[]> {
   try {
     const response = await client.getEntries({
       content_type: "galleryItem",
@@ -69,6 +77,7 @@ export async function getGalleryItems() {
         title: (item.fields.title as string) || "",
         category: (item.fields.category as string) || "all",
         imageUrl: imageUrl,
+        caption: (item.fields.caption as string) || "",
       };
     });
   } catch (error) {

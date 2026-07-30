@@ -34,8 +34,8 @@ function DynamicIcon({ name, size = 26 }: { name: string; size?: number }) {
     .join("");
 
   const IconComponent =
-    (Icons as Record<string, React.ElementType>)[formattedName] ||
-    (Icons as Record<string, React.ElementType>)[name] ||
+    (Icons as unknown as Record<string, React.ElementType>)[formattedName] ||
+    (Icons as unknown as Record<string, React.ElementType>)[name] ||
     Icons.Sparkles;
 
   return <IconComponent size={size} strokeWidth={1.75} />;
