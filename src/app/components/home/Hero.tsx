@@ -46,7 +46,7 @@ export default function Hero() {
 
             {/* Heading */}
             <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] max-w-4xl">
-              Because your loved ones deserve more than care 
+              Because your loved ones deserve more than care
               <span className="block text-[#DD844B] italic mt-3 font-light">
                 They deserve a home.
               </span>
@@ -82,11 +82,11 @@ export default function Hero() {
               </a>
 
               <a
-                href="tel:+19713711444"
+                href="tel:+15034874894"
                 className="border border-white/20 bg-white/5 text-white px-7 py-3 rounded-xl font-semibold hover:bg-white hover:text-[#035346] transition-all duration-300 flex items-center gap-2"
               >
                 <Phone size={16} />
-                Call Now: (971) 371-1444
+                <span>Call Now: 1 (503) 487-4894</span>
               </a>
             </div>
 

@@ -83,13 +83,13 @@ export default function Navbar() {
         {/* Global Action Controls Desktop */}
         <div className="hidden lg:flex items-center gap-6">
           <a
-            href="tel:+19713711444"
+            href="tel:+15034874894"
             className="group flex items-center gap-2.5 text-[#035346] font-bold text-sm transition-opacity hover:opacity-90"
           >
             <div className="bg-[#035346]/5 p-2 rounded-full group-hover:bg-[#035346]/10 transition-colors">
               <Phone size={14} className="text-[#035346]" fill="currentColor" />
             </div>
-            <span>(971) </span>
+            <span>1 (503) 487-4894</span>
           </a>
 
           <Link href="/contact?type=tour">
@@ -149,11 +149,11 @@ export default function Navbar() {
                 </div>
 
                 <a
-                  href="tel:+19713711444"
+                  href="tel:+15034874894"
                   className="flex items-center gap-3 text-[#035346] font-bold py-2 px-4 rounded-xl active:bg-[#035346]/[0.04] transition-colors"
                 >
                   <Phone size={16} />
-                  <span>Call (503) 487 4894</span>
+                  <span>Call 1 (503) 487 4894</span>
                 </a>
 
                 <Link
