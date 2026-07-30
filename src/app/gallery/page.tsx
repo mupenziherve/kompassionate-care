@@ -1,205 +1,18 @@
-"use client";
-
-import React, { useState, useMemo, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Maximize2,
-  X,
-  TreePine,
-  Bed,
-  DoorOpen,
-  Utensils,
-  Tv,
-  Bath,
-  Compass,
-  Grid,
-  Shirt,
-  ArrowRight,
-  MoveUpRight,
-  ChefHat,
-} from "lucide-react";
+import React from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import GalleryClient from "./GalleryClient";
+import { getGalleryItems } from "@/lib/contentful";
 
-interface GalleryItem {
-  id: string;
-  category:
-    | "front-porch"
-    | "back-porch"
-    | "living-room"
-    | "dining-room"
-    | "kitchen"
-    | "bedrooms"
-    | "wash-room"
-    | "laundry-room"
-    | "corridor"
-    | "stairs"
-    | "balcony";
-  imageUrl: string;
-}
+export const revalidate = 0;
 
-export default function GalleryPage() {
-  const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
-
-  // Prevent SSR/Client Hydration Mismatches
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const galleryItems = useMemo<GalleryItem[]>(
-    () => [
-      // --- EXTERIOR ---
-      {
-        id: "fp-1",
-        category: "front-porch",
-        imageUrl: "/images/front-porch/1.png",
-      },
-      {
-        id: "fp-2",
-        category: "front-porch",
-        imageUrl: "/images/front-porch/2.png",
-      },
-      {
-        id: "fp-3",
-        category: "front-porch",
-        imageUrl: "/images/front-porch/3.png",
-      },
-      {
-        id: "fp-4",
-        category: "front-porch",
-        imageUrl: "/images/front-porch/4.png",
-      },
-      {
-        id: "fp-5",
-        category: "front-porch",
-        imageUrl: "/images/front-porch/5.png",
-      },
-      {
-        id: "fp-6",
-        category: "front-porch",
-        imageUrl: "/images/front-porch/6.png",
-      },
-      {
-        id: "bp-1",
-        category: "back-porch",
-        imageUrl: "/images/back-porch/1.png",
-      },
-      {
-        id: "bp-3",
-        category: "back-porch",
-        imageUrl: "/images/back-porch/3.png",
-      },
-      {
-        id: "bp-4",
-        category: "back-porch",
-        imageUrl: "/images/back-porch/4.png",
-      },
-      { id: "ba-1", category: "balcony", imageUrl: "/images/balcony/1.png" },
-      { id: "ba-2", category: "balcony", imageUrl: "/images/balcony/2.png" },
-      { id: "ba-3", category: "balcony", imageUrl: "/images/balcony/3.png" },
-      { id: "ba-4", category: "balcony", imageUrl: "/images/balcony/4.png" },
-      { id: "ba-5", category: "balcony", imageUrl: "/images/balcony/5.png" },
-
-      // --- LIVING & KITCHEN ---
-      {
-        id: "lr-1",
-        category: "living-room",
-        imageUrl: "/images/living-room/1.png",
-      },
-      {
-        id: "lr-2",
-        category: "living-room",
-        imageUrl: "/images/living-room/2.png",
-      },
-      {
-        id: "lr-3",
-        category: "living-room",
-        imageUrl: "/images/living-room/3.png",
-      },
-      {
-        id: "lr-4",
-        category: "living-room",
-        imageUrl: "/images/living-room/4.png",
-      },
-      {
-        id: "lr-5",
-        category: "living-room",
-        imageUrl: "/images/living-room/5.png",
-      },
-      {
-        id: "lr-6",
-        category: "living-room",
-        imageUrl: "/images/living-room/6.png",
-      },
-      {
-        id: "dr-1",
-        category: "dining-room",
-        imageUrl: "/images/dining-room/1.png",
-      },
-      {
-        id: "dr-2",
-        category: "dining-room",
-        imageUrl: "/images/dining-room/2.png",
-      },
-      { id: "ki-1", category: "kitchen", imageUrl: "/images/kitchen/1.png" },
-      { id: "ki-2", category: "kitchen", imageUrl: "/images/kitchen/2.png" },
-
-      // --- PRIVATE & UTILITY ---
-      { id: "bed-1", category: "bedrooms", imageUrl: "/images/bedrooms/1.png" },
-      { id: "bed-2", category: "bedrooms", imageUrl: "/images/bedrooms/2.png" },
-      {
-        id: "wr-1",
-        category: "wash-room",
-        imageUrl: "/images/wash-room/1.png",
-      },
-      {
-        id: "wr-2",
-        category: "wash-room",
-        imageUrl: "/images/wash-room/2.png",
-      },
-      {
-        id: "wr-3",
-        category: "wash-room",
-        imageUrl: "/images/wash-room/3.png",
-      },
-      {
-        id: "lau-1",
-        category: "laundry-room",
-        imageUrl: "/images/laundry-room/1.png",
-      },
-      {
-        id: "lau-2",
-        category: "laundry-room",
-        imageUrl: "/images/laundry-room/2.png",
-      },
-      { id: "cor-1", category: "corridor", imageUrl: "/images/corridor/1.png" },
-      { id: "sta-1", category: "stairs", imageUrl: "/images/stairs/1.png" },
-    ],
-    [],
-  );
-
-  const filteredItems = useMemo(() => {
-    const list =
-      activeCategory === "all"
-        ? galleryItems
-        : galleryItems.filter((item) => item.category === activeCategory);
-
-    return list.map((item) => ({
-      ...item,
-      displayTitle: item.category
-        .split("-")
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(" "),
-    }));
-  }, [activeCategory, galleryItems]);
+export default async function GalleryPage() {
+  const contentfulItems = await getGalleryItems();
 
   return (
     <>
       <Navbar />
       <main className="bg-[#FAF8F4] min-h-screen">
-        {/* HERO SECTION */}
         <section className="relative h-[460px] w-full overflow-hidden bg-stone-900">
           <div className="absolute inset-0 z-0">
             <img
@@ -210,12 +23,7 @@ export default function GalleryPage() {
             <div className="absolute inset-0 bg-gradient-to-r from-[#023b32]/95 via-[#035346]/75 to-transparent" />
           </div>
           <div className="max-w-7xl mx-auto px-6 h-full relative z-10 flex items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-2xl bg-[#035346]/90 backdrop-blur-md rounded-[2rem] p-10 border border-white/10 shadow-2xl"
-            >
+            <div className="max-w-2xl bg-[#035346]/90 backdrop-blur-md rounded-[2rem] p-10 border border-white/10 shadow-2xl">
               <span className="text-[#DD844B] text-xs font-bold tracking-[4px] uppercase">
                 Visual Sanctuary
               </span>
@@ -225,136 +33,13 @@ export default function GalleryPage() {
               <p className="mt-4 text-stone-200 text-sm sm:text-base font-light">
                 Take a virtual walkthrough of our facility.
               </p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* GALLERY GRID SECTION */}
-        <section className="pb-24 -mt-12 relative z-20">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl border border-stone-200/40">
-              {/* Category Filter Navigation */}
-              <div className="mb-10">
-                <div className="flex flex-wrap gap-2 justify-center lg:justify-start bg-stone-100 p-2 rounded-2xl">
-                  {[
-                    { id: "all", label: "View All", icon: Grid },
-                    { id: "front-porch", label: "Front Porch", icon: DoorOpen },
-                    { id: "back-porch", label: "Back Porch", icon: TreePine },
-                    { id: "living-room", label: "Living", icon: Tv },
-                    { id: "dining-room", label: "Dining", icon: Utensils },
-                    { id: "kitchen", label: "Kitchen", icon: ChefHat },
-                    { id: "bedrooms", label: "Bedrooms", icon: Bed },
-                    { id: "wash-room", label: "Wash Room", icon: Bath },
-                    { id: "laundry-room", label: "Laundry", icon: Shirt },
-                    { id: "corridor", label: "Corridor", icon: ArrowRight },
-                    { id: "stairs", label: "Stairs", icon: MoveUpRight },
-                    { id: "balcony", label: "Balcony", icon: Compass },
-                  ].map((btn) => {
-                    const IconComponent = btn.icon;
-                    return (
-                      <button
-                        key={btn.id}
-                        onClick={() => setActiveCategory(btn.id)}
-                        className={`py-3 px-5 text-xs font-bold uppercase rounded-xl flex items-center gap-2 transition-all ${
-                          activeCategory === btn.id
-                            ? "bg-[#035346] text-white shadow-md"
-                            : "text-stone-500 hover:bg-stone-200"
-                        }`}
-                      >
-                        <IconComponent size={14} /> {btn.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Grid Cards Container */}
-              {isMounted && (
-                <motion.div
-                  layout
-                  className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
-                >
-                  <AnimatePresence mode="popLayout">
-                    {filteredItems.map((item) => (
-                      <motion.div
-                        layout
-                        key={item.id}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ duration: 0.4 }}
-                        className="group relative overflow-hidden bg-stone-50 rounded-[2rem] p-3 border border-stone-200/40"
-                      >
-                        <div className="relative h-64 w-full rounded-[1.5rem] overflow-hidden">
-                          <img
-                            src={item.imageUrl}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            alt={item.displayTitle}
-                            loading="lazy"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => setSelectedImage(item)}
-                            className="absolute top-4 right-4 bg-white/90 p-2.5 rounded-full opacity-0 group-hover:opacity-100 transition-all hover:bg-[#035346] hover:text-white shadow-md"
-                            aria-label="Expand Image"
-                          >
-                            <Maximize2 size={16} />
-                          </button>
-                        </div>
-                        <div className="p-4">
-                          <h3 className="font-serif text-[#035346] font-semibold">
-                            {item.displayTitle}
-                          </h3>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                </motion.div>
-              )}
             </div>
           </div>
         </section>
 
-        {/* FULLSCREEN LIGHTBOX MODAL */}
-        <AnimatePresence>
-          {selectedImage && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8"
-              onClick={() => setSelectedImage(null)}
-            >
-              <div
-                className="relative max-w-5xl w-full max-h-[90vh] bg-[#035346] rounded-3xl overflow-hidden shadow-2xl flex flex-col border border-white/10"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="flex items-center justify-between p-6 bg-[#035346] text-white border-b border-white/10">
-                  <h3 className="font-serif text-xl">
-                    {selectedImage.category
-                      .split("-")
-                      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                      .join(" ")}
-                  </h3>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedImage(null)}
-                    className="p-2 rounded-full hover:bg-white/10 text-white transition-colors"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
-                <div className="relative flex-1 bg-black/50 flex items-center justify-center overflow-hidden p-4 min-h-[300px]">
-                  <img
-                    src={selectedImage.imageUrl}
-                    alt={selectedImage.id}
-                    className="max-h-[75vh] w-auto object-contain rounded-xl shadow-2xl"
-                  />
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <section className="pb-24 -mt-12 relative z-20">
+          <GalleryClient items={contentfulItems} />
+        </section>
       </main>
       <Footer />
     </>

@@ -89,7 +89,7 @@ export default function Navbar() {
             <div className="bg-[#035346]/5 p-2 rounded-full group-hover:bg-[#035346]/10 transition-colors">
               <Phone size={14} className="text-[#035346]" fill="currentColor" />
             </div>
-            <span>(971) 371-1444</span>
+            <span>(971) </span>
           </a>
 
           <Link href="/contact?type=tour">
@@ -153,7 +153,7 @@ export default function Navbar() {
                   className="flex items-center gap-3 text-[#035346] font-bold py-2 px-4 rounded-xl active:bg-[#035346]/[0.04] transition-colors"
                 >
                   <Phone size={16} />
-                  <span>Call (971) 371-1444</span>
+                  <span>Call (503) 487 4894</span>
                 </a>
 
                 <Link

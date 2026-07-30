@@ -8,7 +8,7 @@ const client = createClient({
 export async function getServices() {
   try {
     const response = await client.getEntries({
-      content_type: "service", // Updated from "servicee" to "service"
+      content_type: "service",
       order: ["sys.createdAt"],
     });
 
@@ -33,13 +33,85 @@ export async function getServices() {
       badge: item.fields.badge || "",
     }));
   } catch (error) {
-    console.error(
-      "⚠️ Contentful fetch failed. Check Content Type ID or API Keys:",
-      error,
-    );
+    console.error("⚠️ Contentful fetch failed for services:", error);
     return [];
   }
 }
 
-// Exporting named alias to support both import styles across pages
 export { getServices as getServicesFromContentful };
+
+export async function getGalleryItems() {
+  try {
+    const response = await client.getEntries({
+      content_type: "galleryItem",
+      order: ["-sys.createdAt"],
+    });
+
+    if (!response.items || response.items.length === 0) {
+      console.warn(
+        "⚠️ Contentful returned 0 items for content_type 'galleryItem'.",
+      );
+      return [];
+    }
+
+    return response.items.map((item: any) => {
+      const mediaField = item.fields.image || item.fields.imageUrl;
+      let imageUrl = "";
+
+      if (typeof mediaField === "string") {
+        imageUrl = mediaField;
+      } else if (mediaField?.fields?.file?.url) {
+        imageUrl = mediaField.fields.file.url;
+      }
+
+      return {
+        id: item.sys.id,
+        title: (item.fields.title as string) || "",
+        category: (item.fields.category as string) || "all",
+        imageUrl: imageUrl,
+      };
+    });
+  } catch (error) {
+    console.error("⚠️ Contentful fetch failed for gallery items:", error);
+    return [];
+  }
+}
+
+export interface FounderBioItem {
+  id: string;
+  name: string;
+  role: string;
+  title: string;
+  story: string;
+  quote: string;
+  order: number;
+}
+
+export async function getFounderBios(): Promise<FounderBioItem[]> {
+  try {
+    const response = await client.getEntries({
+      content_type: "founderBio",
+      order: ["fields.order"],
+    });
+
+    if (!response.items || response.items.length === 0) {
+      console.warn(
+        "⚠️ Contentful returned 0 items for content_type 'founderBio'.",
+      );
+      return [];
+    }
+
+    return response.items.map((item: any) => ({
+      id: item.sys.id,
+      name: item.fields.name || "",
+      role: item.fields.role || "",
+      title: item.fields.title || "",
+      story: item.fields.story || "",
+      quote: item.fields.quote || "",
+      order: item.fields.order || 0,
+    }));
+  } catch (error) {
+    console.error("⚠️ Contentful fetch failed for founder bios:", error);
+    return [];
+  }
+}
