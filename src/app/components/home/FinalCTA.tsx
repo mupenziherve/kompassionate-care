@@ -65,11 +65,11 @@ export default function FinalCTA() {
 
             {/* Secondary Direct Support Line */}
             <a
-              href="tel:+15034874894"
+              href="tel:+14694874894"
               className="flex items-center justify-center gap-2.5 border border-white/20 bg-white/5 text-white px-6 py-3.5 rounded-xl font-semibold text-xs uppercase tracking-wider hover:bg-white hover:text-[#035346] hover:border-white transition-all duration-300 backdrop-blur-md w-full sm:w-auto transform hover:-translate-y-0.5 active:translate-y-0"
             >
               <Phone size={14} className="shrink-0" />
-              <span>Call 1 (503) 487-4894</span>
+              <span>Call +1 (469) 487-4894</span>
             </a>
           </div>
         </motion.div>

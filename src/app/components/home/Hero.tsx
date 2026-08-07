@@ -82,11 +82,11 @@ export default function Hero() {
               </a>
 
               <a
-                href="tel:+15034874894"
+                href="tel:+14694874894"
                 className="border border-white/20 bg-white/5 text-white px-7 py-3 rounded-xl font-semibold hover:bg-white hover:text-[#035346] transition-all duration-300 flex items-center gap-2"
               >
                 <Phone size={16} />
-                <span>Call Now: 1 (503) 487-4894</span>
+                <span>Call Now: +1 (469) 487-4894</span>
               </a>
             </div>
 
